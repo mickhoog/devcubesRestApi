@@ -1,0 +1,5 @@
+Controllers\UserController.class
+Main\User.class
+Main\UserRepository.class
+Main\GameInformation.class
+Main\main.class
