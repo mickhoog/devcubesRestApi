@@ -17,13 +17,13 @@ public class UserController {
     @Autowired
     Main.UserRepository userRepository;
     
-    // Get all users
+    //Get all users
     @RequestMapping("/user")
     public List<User> user() {
         return userRepository.findAll();
     }
 
-    // Get user by id
+    //Get user by id
     @RequestMapping("/user/{id}")
     public User user(@PathVariable("id") int id) {
         return userRepository.findOne(id);
