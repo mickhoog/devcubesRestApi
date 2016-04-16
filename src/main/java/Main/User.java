@@ -12,7 +12,7 @@ public class User {
     private String last_name;
     private String email;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     private GameInformation gameInformation;
 
     protected User() {}

@@ -8,5 +8,5 @@ public class GameInfoController {
 
 	@Autowired
 	Main.GameInfoRepository repo;
-	
+
 }

@@ -34,7 +34,11 @@ public class UserController {
     public void saveUser(@RequestParam("firstname") String firstName, 
     					 @RequestParam("lastname") String lastName, 
     					 @RequestParam("email") String email) {
-    	User u = new User(firstName, lastName, email);
-    	userRepository.save(u);   	
+    	User user = new User(firstName, lastName, email);
+    	GameInformation gameInfo = new GameInformation(0,0,0,0);
+    	user.setGameInformation(gameInfo);
+    	userRepository.save(user);   	
     }
+    
+    
 }

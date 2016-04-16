@@ -5,7 +5,6 @@ import javax.persistence.*;
 @Entity
 public class GameInformation {
 
-
 	@Id
 	@GeneratedValue
     private Integer id;
