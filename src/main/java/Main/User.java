@@ -4,12 +4,15 @@ import javax.persistence.*;
 
 @Entity
 public class User {
+	
+	@Id
+	@GeneratedValue
     private int id;
     private String first_name;
     private String last_name;
-
     private String email;
 
+    @OneToOne
     private GameInformation gameInformation;
 
     protected User() {}
@@ -25,8 +28,6 @@ public class User {
         this.last_name = lastName;
         this.gameInformation = gameInformation;
     }
-
-
 
     public String getFirst_name() {
         return first_name;
@@ -46,9 +47,6 @@ public class User {
 
     public void setEmail(String email) { this.email = email;}
 
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public int getId() {
         return id;
     }
@@ -57,11 +55,6 @@ public class User {
         this.id = id;
     }
 
-
-
-    @Access(AccessType.PROPERTY)
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "gameInformation_id")
     public GameInformation getGameInformation() {
         return gameInformation;
     }

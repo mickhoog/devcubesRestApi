@@ -3,10 +3,11 @@ package Main;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "gameInformation")
 public class GameInformation {
 
 
+	@Id
+	@GeneratedValue
     private Integer id;
     private Integer money;
     private Integer productivity;
@@ -22,8 +23,6 @@ public class GameInformation {
         this.pc_level = pc_level;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer getId() {
         return id;
     }
@@ -56,13 +55,10 @@ public class GameInformation {
         this.likeability = likeability;
     }
 
-
-    @Column(name = "money")
     public Integer getMoney() {
         return money;
     }
     public void setMoney(Integer money) {
         this.money = money;
     }
-
 }

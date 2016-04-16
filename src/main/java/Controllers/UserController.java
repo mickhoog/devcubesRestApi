@@ -1,6 +1,8 @@
 package Controllers;
 
+import Main.GameInformation;
 import Main.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,18 +15,18 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    Main.UserRepository UserRepository;
-
+    Main.UserRepository userRepository;
+    
     // Get all users
     @RequestMapping("/user")
     public List<User> user() {
-        return UserRepository.findAll();
+        return userRepository.findAll();
     }
 
     // Get user by id
     @RequestMapping("/user/{id}")
     public User user(@PathVariable("id") int id) {
-        return UserRepository.findOne(id);
+        return userRepository.findOne(id);
     }
     
     //Create an user
@@ -33,6 +35,6 @@ public class UserController {
     					 @RequestParam("lastname") String lastName, 
     					 @RequestParam("email") String email) {
     	User u = new User(firstName, lastName, email);
-    	UserRepository.save(u);   	
+    	userRepository.save(u);   	
     }
 }
