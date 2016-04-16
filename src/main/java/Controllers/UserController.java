@@ -27,6 +27,7 @@ public class UserController {
         return UserRepository.findOne(id);
     }
     
+    //Create an user
     @RequestMapping("/user/create")
     public void saveUser(@RequestParam("firstname") String firstName, 
     					 @RequestParam("lastname") String lastName, 
