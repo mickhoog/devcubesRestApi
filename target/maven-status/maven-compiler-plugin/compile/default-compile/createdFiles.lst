@@ -3,4 +3,5 @@ Main\User.class
 Main\UserRepository.class
 Main\GameInformation.class
 Controllers\GameInfoController.class
+Main\GameInfoRepository.class
 Main\main.class
