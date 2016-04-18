@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9548dd18-6f80-468f-bc4f-887933d17f6c" name="Default" comment="">
+    <list default="true" id="9548dd18-6f80-468f-bc4f-887933d17f6c" name="Default" comment="Toegevoegd: Project class / controller / repository (Nu echt)&#10;&#10;kan een new project worden gemaakt, kan een user toevoegen aan een project en kan alle projecten bijkijken.&#10;&#10;ignorejsonproperty geadd zodat er geen infinite loop ontstaat&#10;">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Controllers/GameInfoController.class" afterPath="$PROJECT_DIR$/target/classes/Controllers/GameInfoController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Controllers/UserController.class" afterPath="$PROJECT_DIR$/target/classes/Controllers/UserController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Main/GameInformation.class" afterPath="$PROJECT_DIR$/target/classes/Main/GameInformation.class" />
@@ -34,16 +34,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ProjectRepository.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Main/ProjectRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="GameInfoRepository.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Main/GameInfoRepository.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -118,7 +108,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameInformation.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserRepository.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Main/UserRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameInformation.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Main/GameInformation.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-39">
@@ -1068,7 +1068,7 @@
       <updated>1460053344413</updated>
       <workItem from="1460721559326" duration="10810000" />
       <workItem from="1460924755521" duration="627000" />
-      <workItem from="1460965541907" duration="4523000" />
+      <workItem from="1460965541907" duration="4599000" />
     </task>
     <task id="LOCAL-00001" summary="Toegevoegd: Project class / controller / repository&#10;&#10;Een meer op meer relatie gemaakt tussen User &amp; Project.&#10;&#10;Json ignore toegevoegd zodat er geen infinite loop ontstaat.&#10;&#10;geupdate database met rows staat in de db.sql file.">
       <created>1460732590294</created>
@@ -1084,11 +1084,18 @@
       <option name="project" value="LOCAL" />
       <updated>1460970058303</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Toegevoegd: Project class / controller / repository (Nu echt)&#10;&#10;kan een new project worden gemaakt, kan een user toevoegen aan een project en kan alle projecten bijkijken.&#10;&#10;ignorejsonproperty geadd zodat er geen infinite loop ontstaat&#10;">
+      <created>1460970078570</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1460970078570</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15960000" />
+    <option name="totallyTimeSpent" value="16036000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1391,14 +1398,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main/UserRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Main/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="505">
@@ -1503,6 +1502,14 @@
           <folding>
             <element signature="method#GameInformation#1;class#GameInformation#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main/UserRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
