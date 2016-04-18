@@ -1,27 +1,34 @@
 package Main;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
+@Table(name = "gameInformation")
 public class GameInformation {
 
-	@Id
-	@GeneratedValue
+
     private Integer id;
     private Integer money;
     private Integer productivity;
     private Integer likeability;
     private Integer pc_level;
 
+    private User user;
+
     public GameInformation(){}
 
-    public GameInformation(Integer money, Integer productivity, Integer likeability, Integer pc_level){
+    public GameInformation(Integer money, Integer productivity, Integer likeability, Integer pc_level, User user){
         this.money = money;
         this.productivity = productivity;
         this.likeability = likeability;
         this.pc_level = pc_level;
+        this.user = user;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer getId() {
         return id;
     }
@@ -54,10 +61,23 @@ public class GameInformation {
         this.likeability = likeability;
     }
 
+
+    @Column(name = "money")
     public Integer getMoney() {
         return money;
     }
     public void setMoney(Integer money) {
         this.money = money;
+    }
+
+
+    @OneToOne(mappedBy = "gameInformation")
+    @JsonIgnoreProperties({"gameInformation"})
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

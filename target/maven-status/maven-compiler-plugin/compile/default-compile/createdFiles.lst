@@ -1,7 +1,7 @@
 Controllers\UserController.class
-Main\User.class
 Main\UserRepository.class
 Main\GameInformation.class
+Main\main.class
+Main\User.class
 Controllers\GameInfoController.class
 Main\GameInfoRepository.class
-Main\main.class

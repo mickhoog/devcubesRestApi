@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://D:/Programming/gameEngine/hellomaven.iml" filepath="D:/Programming/gameEngine/hellomaven.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hellomaven.iml" filepath="$PROJECT_DIR$/hellomaven.iml" />
     </modules>
   </component>
 </project>

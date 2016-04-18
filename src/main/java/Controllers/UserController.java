@@ -15,18 +15,18 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    Main.UserRepository userRepository;
+    Main.UserRepository repo;
     
     //Get all users
     @RequestMapping("/user")
     public List<User> user() {
-        return userRepository.findAll();
+        return repo.findAll();
     }
 
     //Get user by id
     @RequestMapping("/user/{id}")
     public User user(@PathVariable("id") int id) {
-        return userRepository.findOne(id);
+        return repo.findOne(id);
     }
     
     //Create an user
@@ -35,9 +35,9 @@ public class UserController {
     					 @RequestParam("lastname") String lastName, 
     					 @RequestParam("email") String email) {
     	User user = new User(firstName, lastName, email);
-    	GameInformation gameInfo = new GameInformation(0,0,0,0);
+    	GameInformation gameInfo = new GameInformation(0,0,0,0, user);
     	user.setGameInformation(gameInfo);
-    	userRepository.save(user);   	
+        repo.save(user);
     }
     
     

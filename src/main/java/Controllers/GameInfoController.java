@@ -16,7 +16,7 @@ public class GameInfoController {
 	@Autowired
 	Main.GameInfoRepository repo;
 
-	@RequestMapping("/gameinfo/{id}")
+	@RequestMapping("/gameinfo/update/{id}")
 	public void update(@PathVariable("id") int id, 
 					   @RequestParam(value="likeability", required=false) Integer likeability,
 					   @RequestParam(value="money", required=false) Integer money,
