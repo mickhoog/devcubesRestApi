@@ -1,28 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9548dd18-6f80-468f-bc4f-887933d17f6c" name="Default" comment="Toegevoegd: Project class / controller / repository (Nu echt)&#10;&#10;kan een new project worden gemaakt, kan een user toevoegen aan een project en kan alle projecten bijkijken.&#10;&#10;&#10;">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/Controllers/ProjectController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/Main/GameInformationRepository.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/Main/Project.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/Main/ProjectRepository.java" />
+    <list default="true" id="9548dd18-6f80-468f-bc4f-887933d17f6c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Controllers/GameInfoController.class" afterPath="$PROJECT_DIR$/target/classes/Controllers/GameInfoController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Controllers/UserController.class" afterPath="$PROJECT_DIR$/target/classes/Controllers/UserController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Main/GameInformation.class" afterPath="$PROJECT_DIR$/target/classes/Main/GameInformation.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Main/User.class" afterPath="$PROJECT_DIR$/target/classes/Main/User.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hellomaven.iml" afterPath="$PROJECT_DIR$/hellomaven.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Controllers/GameInfoController.java" afterPath="$PROJECT_DIR$/src/main/java/Controllers/GameInfoController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Controllers/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/Controllers/UserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Main/GameInformation.java" afterPath="$PROJECT_DIR$/src/main/java/Main/GameInformation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Main/User.java" afterPath="$PROJECT_DIR$/src/main/java/Main/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/db.sql" afterPath="$PROJECT_DIR$/src/main/resources/db.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application.properties" afterPath="$PROJECT_DIR$/target/classes/application.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db.sql" afterPath="$PROJECT_DIR$/target/classes/db.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
@@ -1084,7 +1068,7 @@
       <updated>1460053344413</updated>
       <workItem from="1460721559326" duration="10810000" />
       <workItem from="1460924755521" duration="627000" />
-      <workItem from="1460965541907" duration="4477000" />
+      <workItem from="1460965541907" duration="4523000" />
     </task>
     <task id="LOCAL-00001" summary="Toegevoegd: Project class / controller / repository&#10;&#10;Een meer op meer relatie gemaakt tussen User &amp; Project.&#10;&#10;Json ignore toegevoegd zodat er geen infinite loop ontstaat.&#10;&#10;geupdate database met rows staat in de db.sql file.">
       <created>1460732590294</created>
@@ -1093,11 +1077,18 @@
       <option name="project" value="LOCAL" />
       <updated>1460732590294</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Toegevoegd: Project class / controller / repository (Nu echt)&#10;&#10;kan een new project worden gemaakt, kan een user toevoegen aan een project en kan alle projecten bijkijken.&#10;&#10;ignorejsonproperty geadd zodat er geen infinite loop ontstaat&#10;">
+      <created>1460970058303</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1460970058303</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15914000" />
+    <option name="totallyTimeSpent" value="15960000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1155,7 +1146,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Toegevoegd: Project class / controller / repository&#10;&#10;Een meer op meer relatie gemaakt tussen User &amp; Project.&#10;&#10;Json ignore toegevoegd zodat er geen infinite loop ontstaat.&#10;&#10;geupdate database met rows staat in de db.sql file." />
-    <option name="LAST_COMMIT_MESSAGE" value="Toegevoegd: Project class / controller / repository&#10;&#10;Een meer op meer relatie gemaakt tussen User &amp; Project.&#10;&#10;Json ignore toegevoegd zodat er geen infinite loop ontstaat.&#10;&#10;geupdate database met rows staat in de db.sql file." />
+    <MESSAGE value="Toegevoegd: Project class / controller / repository (Nu echt)&#10;&#10;kan een new project worden gemaakt, kan een user toevoegen aan een project en kan alle projecten bijkijken.&#10;&#10;ignorejsonproperty geadd zodat er geen infinite loop ontstaat&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Toegevoegd: Project class / controller / repository (Nu echt)&#10;&#10;kan een new project worden gemaakt, kan een user toevoegen aan een project en kan alle projecten bijkijken.&#10;&#10;ignorejsonproperty geadd zodat er geen infinite loop ontstaat&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
