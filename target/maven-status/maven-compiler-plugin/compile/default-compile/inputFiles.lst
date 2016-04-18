@@ -1,10 +1,11 @@
-D:\Programming\project\devcubesRestApi\src\main\java\Controllers\BookController.java
+D:\Programming\project\devcubesRestApi\src\main\java\Main\GameInfoRepository.java
+D:\Programming\project\devcubesRestApi\src\main\java\Main\ProjectRepository.java
 D:\Programming\project\devcubesRestApi\src\main\java\Main\User.java
 D:\Programming\project\devcubesRestApi\src\main\java\Main\GameInformation.java
-D:\Programming\project\devcubesRestApi\src\main\java\Main\BookRepository.java
+D:\Programming\project\devcubesRestApi\src\main\java\Controllers\ProjectController.java
 D:\Programming\project\devcubesRestApi\src\main\java\Main\main.java
-D:\Programming\project\devcubesRestApi\src\main\java\Main\Publisher.java
-D:\Programming\project\devcubesRestApi\src\main\java\Main\PublisherRepository.java
+D:\Programming\project\devcubesRestApi\src\main\java\Main\GameInformationRepository.java
 D:\Programming\project\devcubesRestApi\src\main\java\Main\UserRepository.java
-D:\Programming\project\devcubesRestApi\src\main\java\Main\Book.java
 D:\Programming\project\devcubesRestApi\src\main\java\Controllers\UserController.java
+D:\Programming\project\devcubesRestApi\src\main\java\Main\Project.java
+D:\Programming\project\devcubesRestApi\src\main\java\Controllers\GameInfoController.java

@@ -14,8 +14,9 @@ import Main.GameInformation;
 public class GameInfoController {
 
 	@Autowired
-	Main.GameInfoRepository repo;
+	Main.GameInformationRepository repo;
 
+	// Updates the user 'id' with the given data
 	@RequestMapping("/gameinfo/update/{id}")
 	public void update(@PathVariable("id") int id, 
 					   @RequestParam(value="likeability", required=false) Integer likeability,
@@ -35,9 +36,16 @@ public class GameInfoController {
 			repo.save(gameInfo);	
 		}
 	}
-	
+
+	// Finds all users
 	@RequestMapping("/gameinfo")
 	public List<GameInformation> gameInfo() {
 		return repo.findAll();
+	}
+
+	// Finds all the users that have more money than 'Amount'
+	@RequestMapping("/gameinfo/money/more/{amount}")
+	public List<GameInformation> gameInforMoney(@PathVariable("amount") int amount){
+		return repo.findByMoneyGreaterThan(amount);
 	}
 }

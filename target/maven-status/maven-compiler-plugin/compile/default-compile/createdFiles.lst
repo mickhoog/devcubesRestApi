@@ -4,4 +4,4 @@ Main\GameInformation.class
 Main\main.class
 Main\User.class
 Controllers\GameInfoController.class
-Main\GameInfoRepository.class
+Main\LocalDateConverter.class

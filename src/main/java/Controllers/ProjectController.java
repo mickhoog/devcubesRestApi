@@ -1,6 +1,5 @@
 package Controllers;
 
-import Main.GameInformation;
 import Main.Project;
 import Main.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Date;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 public class ProjectController {
@@ -33,10 +32,15 @@ public class ProjectController {
         return repo.findOne(id);
     }
 
-    // Create new project, given only a name
+
+    // Create new project, given a name, description and date
     @RequestMapping("/project/create")
-    public Project newProject(@RequestParam("name") String name) {
-        Project newProject = new Project(name);
+    public Project newProject(@RequestParam("name") String name,
+                              @RequestParam("description") String description) {
+
+        // De date doet het nog niet dus wordt op 1970-01-01 gezet in de database. Dit komt door java 8..
+        //TODO fix date hier
+        Project newProject = new Project(name, description, new Date(2016-01-10));
         repo.save(newProject);
         return newProject;
     }

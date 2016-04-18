@@ -17,19 +17,19 @@ public class UserController {
     @Autowired
     Main.UserRepository repo;
     
-    //Get all users
+    // Get all users
     @RequestMapping("/user")
     public List<User> user() {
         return repo.findAll();
     }
 
-    //Get user by id
+    // Get user by id
     @RequestMapping("/user/{id}")
     public User user(@PathVariable("id") int id) {
         return repo.findOne(id);
     }
     
-    //Create an user
+    // Create an user
     @RequestMapping("/user/create")
     public void saveUser(@RequestParam("firstname") String firstName, 
     					 @RequestParam("lastname") String lastName, 
@@ -38,6 +38,12 @@ public class UserController {
     	GameInformation gameInfo = new GameInformation(0,0,0,0, user);
     	user.setGameInformation(gameInfo);
         repo.save(user);
+    }
+
+    // Finds all users that are in a project by giving the project id
+    @RequestMapping("/user/findUsersOfProject/{id}")
+    public List<User> findUsers(@PathVariable("id") int id){
+        return repo.findByProjects_id(id);
     }
     
     
