@@ -4,6 +4,7 @@ package Main;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+
 import java.util.Set;
 
 @Entity
@@ -59,8 +60,6 @@ public class User {
     public void setId(int id) {
         this.id = id;
     }
-
-
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "gameInformation_id")
