@@ -18,6 +18,7 @@ public class Project {
     private String description;
     private Date start_date;
     private Set<User> users;
+    private Set<SonarPush> sonarPushes;
 
     public Project(){
 
@@ -66,16 +67,23 @@ public class Project {
         this.start_date = start_date;
     }
 
-
-
     @JsonIgnoreProperties({"projects"})
     @ManyToMany(mappedBy = "projects")
     public Set<User> getUsers() {
         return users;
     }
-
     public void setUsers(Set<User> users) {
         this.users = users;
     }
     public void addUser(User user){ this.users.add(user); }
+
+    @JsonIgnoreProperties({"project"})
+    @OneToMany(mappedBy = "project")
+    public Set<SonarPush> getSonarPushes() {
+        return sonarPushes;
+    }
+    public void setSonarPushes(Set<SonarPush> sonarPushes) {
+        this.sonarPushes = sonarPushes;
+    }
+
 }

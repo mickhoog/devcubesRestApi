@@ -8,6 +8,7 @@ Main\main.class
 Main\SonarResult.class
 Main\SonarResultRepository.class
 Main\SonarPush.class
+Controllers\SonarPushController.class
 Main\Coverage.class
 Main\Issue.class
 Main\User.class

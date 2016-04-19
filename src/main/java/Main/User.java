@@ -13,7 +13,6 @@ public class User {
     private String first_name;
     private String last_name;
     private String email;
-
     private GameInformation gameInformation;
     private Set<Project> projects;
 
@@ -72,10 +71,13 @@ public class User {
     }
 
 
-    @JsonIgnoreProperties({"users"})
+    @JsonIgnoreProperties({"users", "sonarPushes"})
     @ManyToMany()
     @JoinTable(name = "project_user", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"))
     public Set<Project> getProjects() { return projects; }
     public void setProjects(Set<Project> projects) { this.projects = projects; }
     public void addProject(Project project){ this.projects.add(project); }
+
+
+
 }

@@ -1,5 +1,7 @@
 package Main;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -11,6 +13,7 @@ public class SonarPush {
 	private Project project;
 	private User user;
 	private Date date;
+
 	
 	protected SonarPush()
 	{}
@@ -37,13 +40,17 @@ public class SonarPush {
 	public void setTotalIssues(int totalIssues) {
 		this.totalIssues = totalIssues;
 	}
+
 	@ManyToOne
+	@JsonIgnoreProperties({"users"})
 	public Project getProject() {
 		return project;
 	}
 	public void setProject(Project project) {
 		this.project = project;
 	}
+
+	@JsonIgnoreProperties({"projects", "gameInformation"})
 	@OneToOne
 	public User getUser() {
 		return user;
@@ -57,4 +64,5 @@ public class SonarPush {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
 }
