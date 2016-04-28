@@ -13,21 +13,28 @@ public class User {
     private String first_name;
     private String last_name;
     private String email;
+    private String password;
+    private String username;
+
     private GameInformation gameInformation;
     private Set<Project> projects;
 
     protected User() {}
 
-    public User(String firstName, String lastName, String email) {
+    public User(String firstName, String lastName, String email, String password, String username) {
         this.first_name = firstName;
         this.last_name = lastName;
         this.email = email;
+        this.password = password;
+        this.username = username;
     }
 
-    public User(String firstName, String lastName, String email, GameInformation gameInformation, Set<Project> projects) {
+    public User(String firstName, String lastName, String email, String password, String username, GameInformation gameInformation, Set<Project> projects) {
         this.first_name = firstName;
         this.last_name = lastName;
         this.email = email;
+        this.password = password;
+        this.username = username;
         this.gameInformation = gameInformation;
         this.projects = projects;
     }
@@ -49,6 +56,26 @@ public class User {
     public String getEmail() { return email; }
 
     public void setEmail(String email) { this.email = email;}
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public boolean checkPassword(String password){
+        return this.password == password;
+    }
 
 
     @Id

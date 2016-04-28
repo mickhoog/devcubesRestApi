@@ -29,13 +29,17 @@ public class UserController {
     
     // Create an user
     @RequestMapping("/user/create")
-    public void saveUser(@RequestParam("firstname") String firstName, 
+    public User saveUser(@RequestParam("firstname") String firstName,
     					 @RequestParam("lastname") String lastName, 
-    					 @RequestParam("email") String email) {
-    	User user = new User(firstName, lastName, email);
-    	GameInformation gameInfo = new GameInformation(0,0,0,0, user);
+    					 @RequestParam("email") String email,
+                         @RequestParam("password") String password,
+                         @RequestParam("username") String username
+                         ) {
+    	User user = new User(firstName, lastName, email, password, username);
+    	GameInformation gameInfo = new GameInformation(150, 30, 30, 0, user);
     	user.setGameInformation(gameInfo);
         repo.save(user);
+        return user;
     }
 
     // Finds all users that are in a project by giving the project id
@@ -43,6 +47,15 @@ public class UserController {
     public List<User> findUsers(@PathVariable("id") int id){
         return repo.findByProjects_id(id);
     }
-    
-    
+
+    @RequestMapping("/user/checkpassword/{username}/{password}")
+    public Boolean checkPassword(@PathVariable("username") String username,
+                                 @PathVariable("password") String password){
+        User user = repo.findByUsername(username);
+        if(user.getPassword().equals(password)){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

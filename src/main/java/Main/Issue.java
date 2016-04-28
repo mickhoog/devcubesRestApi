@@ -36,7 +36,8 @@ public class Issue extends SonarResult{
 	}
 	public void setRisk(String risk) {
 		this.risk = risk;
-	}	
+	}
+
 	@ManyToOne
 	public SonarPush getSonarpush() {
 		return sonarpush;

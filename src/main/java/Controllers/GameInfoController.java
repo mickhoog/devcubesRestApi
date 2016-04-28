@@ -16,36 +16,26 @@ public class GameInfoController {
 	@Autowired
 	Main.GameInformationRepository repo;
 
-	// Updates the user 'id' with the given data
-	@RequestMapping("/gameinfo/update/{id}")
-	public void update(@PathVariable("id") int id, 
-					   @RequestParam(value="likeability", required=false) Integer likeability,
-					   @RequestParam(value="money", required=false) Integer money,
-					   @RequestParam(value="pclevel", required=false) Integer pcLevel,
-					   @RequestParam(value="productivity", required=false) Integer productivity) {
-		GameInformation gameInfo = repo.findOne(id);
-		if(gameInfo != null) {
-			if(likeability != null)
-				gameInfo.setLikeability(likeability);
-			if(money != null)
-				gameInfo.setMoney(money);				
-			if(productivity != null)
-				gameInfo.setProductivity(productivity);
-			if(pcLevel != null)
-				gameInfo.setPc_level(pcLevel);
-			repo.save(gameInfo);	
-		}
+	@RequestMapping("gameinfo/{id}/{property}/{kind}/{amount}")
+	public GameInformation changeInformation(@PathVariable("id") int id,
+											 @PathVariable("property") String property,
+											 @PathVariable("kind") String kind,
+											 @PathVariable("amount") int amount){
+
+		return repo.findOne(id);
 	}
 
-	// Finds all users
+	// Finds all gameinformation
 	@RequestMapping("/gameinfo")
 	public List<GameInformation> gameInfo() {
 		return repo.findAll();
 	}
 
+	// Find gameinformation by id
+	@RequestMapping("/gameinfo/{id}")
+	public GameInformation gameInformationById(@PathVariable("id") int id){ return repo.findOne(id); }
+
 	// Finds all the users that have more money than 'Amount'
 	@RequestMapping("/gameinfo/money/more/{amount}")
-	public List<GameInformation> gameInforMoney(@PathVariable("amount") int amount){
-		return repo.findByMoneyGreaterThan(amount);
-	}
+	public List<GameInformation> gameInforMoney(@PathVariable("amount") int amount){return repo.findByMoneyGreaterThan(amount); }
 }

@@ -42,7 +42,7 @@ public class SonarPush {
 	}
 
 	@ManyToOne
-	@JsonIgnoreProperties({"users"})
+	@JsonIgnoreProperties({"users", "sonarPushes"})
 	public Project getProject() {
 		return project;
 	}

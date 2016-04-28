@@ -22,10 +22,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="devcubesRestApi" />
         <module name="hellomaven" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="devcubesRestApi" target="1.8" />
       <module name="hellomaven" target="1.8" />
     </bytecodeTargetLevel>
   </component>
