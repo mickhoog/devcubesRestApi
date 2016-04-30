@@ -18,8 +18,7 @@ public class SonarPush {
 	protected SonarPush()
 	{}
 	
-	public SonarPush(int id, int totalIssues, Project project, User user, Date date) {
-		this.id = id;
+	public SonarPush(int totalIssues, Project project, User user, Date date) {
 		this.totalIssues = totalIssues;
 		this.project = project;
 		this.user = user;
@@ -51,7 +50,7 @@ public class SonarPush {
 	}
 
 	@JsonIgnoreProperties({"projects", "gameInformation"})
-	@OneToOne
+	@ManyToOne
 	public User getUser() {
 		return user;
 	}

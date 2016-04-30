@@ -53,6 +53,7 @@ public class User {
         this.last_name = last_name;
     }
 
+    @Column(unique = true)
     public String getEmail() { return email; }
 
     public void setEmail(String email) { this.email = email;}

@@ -30,6 +30,11 @@ public class Project {
         this.start_date = start_date;
     }
 
+    public Project(String name, String description) {
+    	this.name = name;
+    	this.description = description;
+    }
+    
     public Project(String name, String description, Date start_date, Set<User> users){
         this.name = name;
         this.description = description;
@@ -46,6 +51,7 @@ public class Project {
         this.id = id;
     }
 
+    @Column(unique = true)
     public String getName() {
         return name;
     }
