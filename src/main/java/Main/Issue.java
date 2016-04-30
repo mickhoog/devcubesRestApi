@@ -1,6 +1,9 @@
 package Main;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.sql.Date;
 
 @Entity
@@ -71,6 +74,8 @@ public class Issue extends SonarResult{
 	}
 
 	@ManyToOne
+	@JoinColumn(name = "project_id")
+	@JsonIgnoreProperties({"issues"})
 	public Project getProject() {
 		return project;
 	}
@@ -80,6 +85,7 @@ public class Issue extends SonarResult{
 	}
 
 	@ManyToOne
+	@JoinColumn(name = "user_id")
 	public User getUser() {
 		return user;
 	}

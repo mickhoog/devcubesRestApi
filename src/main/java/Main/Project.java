@@ -19,6 +19,7 @@ public class Project {
     private Date start_date;
     private Set<User> users;
     private Set<SonarPush> sonarPushes;
+    private Set<Issue> issues;
 
     public Project(){
 
@@ -90,6 +91,15 @@ public class Project {
     }
     public void setSonarPushes(Set<SonarPush> sonarPushes) {
         this.sonarPushes = sonarPushes;
+    }
+    
+    @OneToMany(mappedBy = "project")
+    public Set<Issue> getIssues() {
+    	return issues;
+    }
+    
+    public void setIssues(Set<Issue> issues) {
+    	this.issues = issues;
     }
 
 }
