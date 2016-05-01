@@ -3,7 +3,6 @@ package Controllers;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.TimeZone;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -20,6 +19,7 @@ import Main.User;
 
 @RestController
 public class SonarResultController {
+	
     @Autowired
     Main.ProjectRepository prijRepo;
 
@@ -30,7 +30,9 @@ public class SonarResultController {
     Main.SonarResultRepository sonarRepo;
     
     private final String issuesUurl = "http://145.24.222.130:9000/api/issues/search?";    
-	
+	private JsonReader jsonReader = new JsonReader();
+    
+	//updates sonar data in database
 	@RequestMapping("/updatesonardata")
 	public void UpdateSonar() {
 		saveIssues();
@@ -39,7 +41,6 @@ public class SonarResultController {
 	//saves issues to database
 	public void saveIssues() {
 		try {
-			JsonReader jsonReader = new JsonReader();
 			JSONObject jobject = jsonReader.readJson(issuesUurl);
 			String paramPageSize = "pageSize=" + jobject.get("total").toString();
 			JSONArray issues = jsonReader.readJsonComponent(issuesUurl+paramPageSize, "issues");
@@ -66,6 +67,7 @@ public class SonarResultController {
 		}
 	}		
 	
+	//parse string date to sql date 
 	private java.sql.Date parseDate(String date) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Date date1 = new Date(new java.util.Date().getTime());
@@ -78,6 +80,7 @@ public class SonarResultController {
 		return date1;
 	}
 	
+	//creates issue
 	@RequestMapping("/issue/create")
 	public Issue createIssue(@RequestParam("id") String id,@RequestParam("severity") String severity,
 							 @RequestParam("component") String component,@RequestParam("message") String message, 
@@ -85,20 +88,13 @@ public class SonarResultController {
 							 @RequestParam("useremail") String email, @RequestParam("project") String project) {
 		User user = userRepo.findByEmail(email);
 		Project prij = prijRepo.findByName(project);	
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		format.setTimeZone(TimeZone.getTimeZone("UTC"));
-		Date date1 = new Date(new java.util.Date().getTime());
-		try {
-			date1 =  new Date(format.parse(date.substring(0, 9)).getTime());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Date date1 = parseDate(date);
 		Issue issue = new Issue(id, severity, component, message, debt, date1, prij, user);
 		sonarRepo.save(issue);		
 		return issue;
 	}
 	
+	//returns an issue given the id
 	@RequestMapping("/issue/{id}")
 	public Issue getIssue(@PathVariable("id") String id) {
 		Issue issue = (Issue) sonarRepo.findIssueById(id);
