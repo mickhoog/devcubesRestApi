@@ -1,12 +1,14 @@
 Controllers\ProjectController.class
 Controllers\UserController.class
 Main\Duplication.class
+Controllers\IssueController.class
 Main\Complexity.class
 Main\UserRepository.class
 Main\GameInformation.class
+Main\IssueRepository.class
+Main\JsonReader.class
 Main\main.class
 Main\SonarResult.class
-Main\SonarResultRepository.class
 Main\SonarPush.class
 Controllers\SonarPushController.class
 Main\Coverage.class

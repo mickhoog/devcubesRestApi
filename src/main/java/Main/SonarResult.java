@@ -1,21 +1,19 @@
 package Main;
 
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class SonarResult {
 	
-	private Long id;
+	protected String id;
 	
 	@Id
-	@GeneratedValue
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 	
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 }

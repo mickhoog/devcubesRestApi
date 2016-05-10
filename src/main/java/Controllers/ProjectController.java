@@ -27,6 +27,11 @@ public class ProjectController {
     public List<Project> books() {
         return repo.findAll();
     }
+    
+    @RequestMapping("/project/search")
+    public Project getProjectByName(@RequestParam("name") String project) {
+    	return repo.findByName(project);
+    }
 
     // Get user by id
     @RequestMapping("/project/{id}")
