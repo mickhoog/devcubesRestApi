@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * Created by Mick on 19-4-2016.
- */
 @RestController
 public class SonarPushController {
     @Autowired
@@ -20,4 +17,5 @@ public class SonarPushController {
     public List<SonarPush> user() {
         return repo.findAll();
     }
+
 }
