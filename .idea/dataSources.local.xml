@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - devcubes@localhost" uuid="d20e20b4-ff19-4a07-a719-2cdb4ec37306">
+      <secret-storage>memory</secret-storage>
+    </data-source>
+  </component>
+</project>
