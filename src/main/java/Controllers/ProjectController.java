@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 @ComponentScan(basePackages = {"Models"})
 @RestController
@@ -27,11 +31,6 @@ public class ProjectController {
     public List<Project> books() {
         return repo.findAll();
     }
-    
-    @RequestMapping("/project/search")
-    public Project getProjectByName(@RequestParam("name") String project) {
-    	return repo.findByName(project);
-    }
 
     // Get user by id
     @RequestMapping("/project/{id}")
@@ -43,11 +42,14 @@ public class ProjectController {
     // Create new project, given a name, description and date
     @RequestMapping("/project/create")
     public Project newProject(@RequestParam("name") String name,
-                              @RequestParam("description") String description) {
+                              @RequestParam("description") String description,
+                              @RequestParam("startdate") String startDate) throws ParseException {
 
-        // De date doet het nog niet dus wordt op 1970-01-01 gezet in de database. Dit komt door java 8..
-        //TODO fix date hier
-        Project newProject = new Project(name, description, new Date(2016-01-10));
+        SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+        java.util.Date date = DATE_FORMAT.parse(startDate);
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+
+        Project newProject = new Project(name, description, sqlDate);
         repo.save(newProject);
         return newProject;
     }

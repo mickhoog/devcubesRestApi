@@ -14,7 +14,7 @@ public class UserController {
 
     @Autowired
     Main.UserRepository repo;
-    
+
     // Get all users
     @RequestMapping("/user")
     public List<User> user() {
@@ -26,20 +26,26 @@ public class UserController {
     public User user(@PathVariable("id") int id) {
         return repo.findOne(id);
     }
-    
+
     // Create an user
     @RequestMapping("/user/create")
     public User saveUser(@RequestParam("firstname") String firstName,
-    					 @RequestParam("lastname") String lastName, 
-    					 @RequestParam("email") String email,
+                         @RequestParam("lastname") String lastName,
+                         @RequestParam("email") String email,
                          @RequestParam("password") String password,
                          @RequestParam("username") String username
-                         ) {
-    	User user = new User(firstName, lastName, email, password, username);
-    	GameInformation gameInfo = new GameInformation(150, 30, 30, 0, user);
-    	user.setGameInformation(gameInfo);
+    ) {
+        User user = new User(firstName, lastName, email, password, username);
+        GameInformation gameInfo = new GameInformation(150, 30, 30, 0, user);
+        user.setGameInformation(gameInfo);
         repo.save(user);
         return user;
+    }
+
+    // Delete user
+    @RequestMapping("/user/delete/{id}")
+    public void deleteUser(@PathVariable("id") int id){
+        repo.delete(id);
     }
 
     // Finds all users that are in a project by giving the project id

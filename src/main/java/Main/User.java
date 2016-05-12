@@ -80,6 +80,7 @@ public class User {
 
 
     @Id
+    @Column(columnDefinition = "INT(11) UNSIGNED")
     @GeneratedValue(strategy = GenerationType.AUTO)
     public int getId() {
         return id;
@@ -105,7 +106,5 @@ public class User {
     public Set<Project> getProjects() { return projects; }
     public void setProjects(Set<Project> projects) { this.projects = projects; }
     public void addProject(Project project){ this.projects.add(project); }
-
-
 
 }

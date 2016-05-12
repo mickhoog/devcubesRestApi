@@ -3,6 +3,7 @@ package Main;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "gameInformation")
@@ -28,6 +29,7 @@ public class GameInformation {
     }
 
     @Id
+    @Column(columnDefinition = "INT(11) UNSIGNED")
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer getId() {
         return id;
@@ -72,12 +74,23 @@ public class GameInformation {
 
 
     @OneToOne(mappedBy = "gameInformation")
-    @JsonIgnoreProperties({"gameInformation"})
+    @JsonIgnoreProperties({"gameInformation", "projects", "password"})
     public User getUser() {
         return user;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
+
+    public Integer changeProperty(Integer property, String kind, Integer amount){
+        if(Objects.equals(kind, "add")){
+            property += amount;
+        }
+        if(Objects.equals(kind, "subtract")){
+            property -= amount;
+        }
+        return property;
+    }
+
+
 }
