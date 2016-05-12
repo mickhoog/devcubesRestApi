@@ -76,7 +76,7 @@ public class IssueController {
 					User user = userRepo.findByEmail(jo.get("author").toString());
 					Project prij = prijRepo.findByName(project);
 					Issue issue = new Issue(key, jo.get("severity").toString(), jo.get("component").toString(),
-							jo.get("message").toString(), debt, parseDate(jo.get("updateDate").toString()), prij, user);
+							jo.get("message").toString(), debt, DateParser.parseDate(jo.get("updateDate").toString()), prij, user);
 					issueRepo.save(issue);
 				}
 			}
