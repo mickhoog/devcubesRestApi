@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import Main.DateParser;
 import Main.Issue;
 import Main.JsonReader;
 import Main.Project;
@@ -84,19 +85,6 @@ public class IssueController {
 		}
 	}		
 	
-	//parse string date to sql date 
-	private java.sql.Date parseDate(String date) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date date1 = new Date(new java.util.Date().getTime());
-		try {
-			date1 =  new Date(format.parse(date.substring(0, 9)).getTime());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-		return date1;
-	}
-	
 	//creates issue
 	@RequestMapping("/issue/create")
 	public Issue createIssue(@RequestParam("id") String id,@RequestParam("severity") String severity,
@@ -105,7 +93,7 @@ public class IssueController {
 							 @RequestParam("useremail") String email, @RequestParam("project") String project) {
 		User user = userRepo.findByEmail(email);
 		Project prij = prijRepo.findByName(project);	
-		Date date1 = parseDate(date);
+		Date date1 = DateParser.parseDate(date);
 		Issue issue = new Issue(id, severity, component, message, debt, date1, prij, user);
 		issueRepo.save(issue);		
 		return issue;
