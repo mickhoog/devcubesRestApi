@@ -1,9 +1,6 @@
 package Controllers;
 
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -32,7 +29,7 @@ public class IssueController {
     @Autowired
     Main.IssueRepository issueRepo;
     
-    private final String issuesUurl = "http://145.24.222.130:9000/api/issues/search?";    
+    private final String issuesUurl = "http://145.24.222.130:9000/api/issues/search?statuses=OPEN";    
 	private JsonReader jsonReader = new JsonReader();
     
 	@RequestMapping("/issue")
@@ -61,7 +58,7 @@ public class IssueController {
 		try {
 			JSONObject jobject = jsonReader.readJson(issuesUurl);
 			String paramPageSize = "pageSize=" + jobject.get("total").toString();
-			JSONArray issues = jsonReader.readJsonComponent(issuesUurl+paramPageSize, "issues");
+			JSONArray issues = jsonReader.readJsonComponent(issuesUurl+"&"+paramPageSize, "issues");
 			for(int i =0; i < issues.size(); i++) {
 				JSONObject jo = (JSONObject) issues.get(i);
 				String key = jo.get("key").toString();
