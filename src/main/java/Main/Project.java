@@ -94,6 +94,7 @@ public class Project {
     }
     
     @OneToMany(mappedBy = "project")
+    @JsonIgnoreProperties({"projects","project","issues"})
     public Set<Issue> getIssues() {
     	return issues;
     }
