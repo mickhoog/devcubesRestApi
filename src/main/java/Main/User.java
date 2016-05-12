@@ -100,7 +100,7 @@ public class User {
     }
 
 
-    @JsonIgnoreProperties({"users", "sonarPushes"})
+    @JsonIgnoreProperties({"users", "sonarPushes", "issues"})
     @ManyToMany()
     @JoinTable(name = "project_user", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"))
     public Set<Project> getProjects() { return projects; }
