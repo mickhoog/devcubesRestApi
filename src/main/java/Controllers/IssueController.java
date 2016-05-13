@@ -64,7 +64,8 @@ public class IssueController {
 				String key = jo.get("key").toString();
 				if(issueRepo.findById(key) == null) {
 					String project = jo.get("project").toString();
-					if(prijRepo.findByName(project) == null) {
+					String email = jo.get("author").toString();
+					if(prijRepo.findByName(project) == null || userRepo.findByEmail(email) == null) {
 						continue;
 					}
 					String debt = "";			

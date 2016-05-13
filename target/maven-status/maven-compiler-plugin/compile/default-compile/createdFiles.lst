@@ -1,6 +1,7 @@
 Controllers\ProjectController.class
 Main\UserRepository.class
 Main\IssueRepository.class
+Main\CalculateSalary.class
 Main\JsonReader.class
 Main\main.class
 Main\Coverage.class
