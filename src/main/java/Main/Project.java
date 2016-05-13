@@ -44,6 +44,7 @@ public class Project {
     }
 
     @Id
+    @Column(columnDefinition = "INT(11) UNSIGNED")
     @GeneratedValue(strategy = GenerationType.AUTO)
     public int getId() {
         return id;
@@ -60,6 +61,7 @@ public class Project {
         this.name = name;
     }
 
+    @Column(columnDefinition = "LONGTEXT")
     public String getDescription() {
         return description;
     }
