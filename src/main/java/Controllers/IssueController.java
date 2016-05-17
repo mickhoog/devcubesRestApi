@@ -1,9 +1,6 @@
 package Controllers;
 
-import Main.Issue;
-import Main.JsonReader;
-import Main.SonarPush;
-import Main.User;
+import Main.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -65,14 +62,12 @@ public class IssueController {
         String complexityTechDebtUrl = "http://145.24.222.130:9000/api/resources/index?resource="+sonarPushName+"&metrics=complexity,class_complexity,file_complexity,function_complexity,sqale_index,sqale_debt_ratio&format=json";
 
         getComplexityAndTechnicalDebt(complexityTechDebtUrl, sonarPush);
-        sonarRepo.save(sonarPush);
+        //sonarRepo.save(sonarPush);
         saveIssues(issuesUrl, userRepo.getOne(1), sonarPush);
-
-
 
         // Call script van harmen voor cijfer.
         // De logic hier achter wordt: haal de laatste sonar push van dit project op, van dat project bijv: getComplexity, en als die lager is dan dat deze push is, heb je het verbeterd! good job :)
-        //new CalculateSalary(sonarPush);
+        new CalculateSalary(sonarPush);
         return "Done";
 	}
 
@@ -93,7 +88,7 @@ public class IssueController {
                     // if issue.key(flow) == bestaand
 
                     Issue newIssue = new Issue(issue.get("severity").toString(), issue.get("component").toString(), issue.get("message").toString(), debt, sonarPush);
-                    issueRepo.save(newIssue);
+                    //issueRepo.save(newIssue);
                 }
             }
         } catch(Exception e) {
