@@ -1,14 +1,9 @@
 package Main;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
-
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -19,16 +14,17 @@ public class Project {
     private Date start_date;
     private Set<User> users;
     private Set<SonarPush> sonarPushes;
-    private Set<Issue> issues;
+    private String sonarName;
 
     public Project(){
 
     }
 
-    public Project(String name, String description, Date start_date){
+    public Project(String name, String description, Date start_date, String sonarName){
         this.name = name;
         this.description = description;
         this.start_date = start_date;
+        this.sonarName = sonarName;
     }
 
     public Project(String name, String description) {
@@ -41,6 +37,15 @@ public class Project {
         this.description = description;
         this.start_date = start_date;
         this.users = users;
+    }
+
+
+    public String getSonarName() {
+        return sonarName;
+    }
+
+    public void setSonarName(String sonarName) {
+        this.sonarName = sonarName;
     }
 
     @Id
@@ -95,14 +100,5 @@ public class Project {
         this.sonarPushes = sonarPushes;
     }
     
-    @OneToMany(mappedBy = "project")
-    @JsonIgnoreProperties({"projects","project","issues"})
-    public Set<Issue> getIssues() {
-    	return issues;
-    }
-    
-    public void setIssues(Set<Issue> issues) {
-    	this.issues = issues;
-    }
 
 }

@@ -2,6 +2,7 @@ package Controllers;
 
 import Main.SonarPush;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,8 +15,13 @@ public class SonarPushController {
 
     // Get all users
     @RequestMapping("/sonarpush")
-    public List<SonarPush> user() {
+    public List<SonarPush> getAll() {
         return repo.findAll();
+    }
+
+    @RequestMapping("/sonarpush/{id}")
+    public SonarPush getSonarPush(@PathVariable("id") int id) {
+        return repo.findOne(id);
     }
 
 }

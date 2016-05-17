@@ -2,7 +2,6 @@ package Controllers;
 
 import Main.Project;
 import Main.User;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,11 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 @ComponentScan(basePackages = {"Models"})
 @RestController
@@ -43,13 +39,15 @@ public class ProjectController {
     @RequestMapping("/project/create")
     public Project newProject(@RequestParam("name") String name,
                               @RequestParam("description") String description,
-                              @RequestParam("startdate") String startDate) throws ParseException {
+                              @RequestParam("startdate") String startDate,
+                              @RequestParam("sonarName") String sonarName
+                              ) throws ParseException {
 
         SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
         java.util.Date date = DATE_FORMAT.parse(startDate);
         java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 
-        Project newProject = new Project(name, description, sqlDate);
+        Project newProject = new Project(name, description, sqlDate, sonarName);
         repo.save(newProject);
         return newProject;
     }

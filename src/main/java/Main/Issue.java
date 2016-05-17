@@ -2,36 +2,35 @@ package Main;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import java.sql.Date;
-
 @Entity
-public class Issue extends SonarResult{
+public class Issue{
 
+	private int id;
+	private SonarPush sonarPush;
 	private String severity;
 	private String component;
 	private String message;
 	private String debt;
-	private Date date;
-	private Project project;
-	private User user;
 	
-	protected Issue() 
-	{}
+	public Issue(){}
 
-	public Issue(String id, String severity, String component, String message,
-			String debt, Date date, Project project, User user) {
-		super();
-		this.id = id;
+	public Issue(String severity, String component, String message, String debt, SonarPush sonarPush) {
+		this.sonarPush = sonarPush;
 		this.severity = severity;
 		this.component = component;
 		this.message = message;
 		this.debt = debt;
-		this.date = date;
-		this.project = project;
-		this.user = user;
 	}
+
+	@Id
+	@Column(columnDefinition = "INT(11) UNSIGNED")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public int getId() {return id;}
+	public void setId(int id) {this.id = id;}
+
+	@ManyToOne
+	public SonarPush getSonarPush() {return sonarPush;}
+	public void setSonarPush(SonarPush sonarPush) {this.sonarPush = sonarPush;}
 
 	public String getSeverity() {
 		return severity;
@@ -65,33 +64,15 @@ public class Issue extends SonarResult{
 		this.debt = debt;
 	}
 
-	public Date getDate() {
-		return date;
+	@Override
+	public String toString() {
+		return "Issue{" +
+				"id=" + id +
+				", sonarPush=" + sonarPush +
+				", severity='" + severity + '\'' +
+				", component='" + component + '\'' +
+				", message='" + message + '\'' +
+				", debt='" + debt + '\'' +
+				'}';
 	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	@ManyToOne
-	@JoinColumn(name = "project_id")
-	@JsonIgnoreProperties({"issues"})
-	public Project getProject() {
-		return project;
-	}
-
-	public void setProject(Project project) {
-		this.project = project;
-	}
-
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 }
