@@ -28,16 +28,23 @@ public class JsonReader {
 
 		return components;
 	}
-	
+		
 	public JSONObject readJson(String url) throws IOException, ParseException {
 		JSONParser parser = new JSONParser();
 		JSONObject jsonObject = new JSONObject();
 		InputStream is = new URL(url).openStream();
-		if(is.available() != 0) {
-			InputStreamReader isr = new InputStreamReader(is, Charset.defaultCharset());			
-			Object obj = parser.parse(isr);		
-			jsonObject = (JSONObject) obj;	
-		}
+		InputStreamReader isr = new InputStreamReader(is, Charset.defaultCharset());			
+		Object obj = parser.parse(isr);		
+		jsonObject = (JSONObject) obj;	
 		return jsonObject;
+	}
+	
+	public JSONArray readJsonArray(String url) throws ParseException, IOException {
+		JSONParser parser = new JSONParser();
+		InputStream is = new URL(url).openStream();
+		InputStreamReader isr = new InputStreamReader(is, Charset.defaultCharset());		
+		Object obj = parser.parse(isr);		
+		JSONArray jArray = (JSONArray) obj;
+		return jArray;
 	}
 }
