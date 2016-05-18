@@ -1,10 +1,6 @@
 package Controllers;
 
-import Main.Issue;
-import Main.JsonReader;
-import Main.Project;
-import Main.SonarPush;
-import Main.User;
+import Main.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -14,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +39,8 @@ public class IssueController {
 		return issueRepo.findAll();
 	}
 
+
+
 	//updates sonar data in database
 	@RequestMapping("/updatesonardata")
 	public String updateSonar(@RequestParam("project") String projectName,
@@ -64,16 +62,17 @@ public class IssueController {
         String complexityTechDebtUrl = "http://145.24.222.130:9000/api/resources/index?resource="+sonarPushName+"&metrics=complexity,class_complexity,file_complexity,function_complexity,sqale_index,sqale_debt_ratio&format=json";
 
         getComplexityAndTechnicalDebt(complexityTechDebtUrl, sonarPush);
-        sonarRepo.save(sonarPush);
-        saveIssues(issuesUrl, user, sonarPush);
+        //sonarRepo.save(sonarPush);
+        List<Issue> issueList = saveIssues(issuesUrl, user, sonarPush);
 
         // Call script van harmen voor cijfer.
         // De logic hier achter wordt: haal de laatste sonar push van dit project op, van dat project bijv: getComplexity, en als die lager is dan dat deze push is, heb je het verbeterd! good job :)
-        //new CalculateSalary(sonarPush);
+        new CalculateSalary(sonarPush, issueList);
         return "Done";
 	}	
 	
-    public void saveIssues(String url, User user, SonarPush sonarPush){
+    public List<Issue> saveIssues(String url, User user, SonarPush sonarPush){
+        List<Issue> issueList = new ArrayList<Issue>();
         try {
             JSONObject jobject = jsonReader.readJson(url);
             String paramPageSize = "pageSize=" + jobject.get("total").toString();
@@ -88,12 +87,14 @@ public class IssueController {
                     // if issue.key(flow) == bestaand
 
                     Issue newIssue = new Issue(issue.get("severity").toString(), issue.get("component").toString(), issue.get("message").toString(), debt, sonarPush);
-                    issueRepo.save(newIssue);
+                    issueList.add(newIssue);
+                    //issueRepo.save(newIssue);
                 }
             }
         } catch(Exception e) {
             e.printStackTrace();
         }
+        return issueList;
     }
 
     public void getComplexityAndTechnicalDebt(String url, SonarPush sonarPush){

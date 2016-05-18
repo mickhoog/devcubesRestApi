@@ -2,6 +2,7 @@ package Main;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Random;
@@ -12,14 +13,20 @@ import java.util.Random;
 public class CalculateSalary {
     private static final Logger log = LoggerFactory.getLogger(CalculateSalary.class);
 
-    public CalculateSalary(SonarPush sonarPush) {
+    @Autowired
+    private IssueRepository repo;
 
-        float s = getSalary(sonarPush);
-        log.info("Salary: " + String.valueOf(s));
+    public CalculateSalary(SonarPush sonarPush, List<Issue> issues) {
+
+        log.info(String.valueOf(issues));
+
+        //float s = getSalary(sonarPush);
+        //log.info("Salary: " + String.valueOf(s));
         // Get user id
         // roep dan aan gameinfocontroller changeInformation
 
         //http://localhost:8080/updatesonardata
+
     }
 
     public float getSalary(SonarPush sonarPush){
