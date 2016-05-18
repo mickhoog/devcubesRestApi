@@ -3,7 +3,9 @@ package Main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.YamlProcessor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -20,34 +22,29 @@ public class CalculateSalary {
 
         log.info(String.valueOf(issues));
 
-        //float s = getSalary(sonarPush);
-        //log.info("Salary: " + String.valueOf(s));
+        double s = Math.ceil(getSalary(sonarPush, issues));
+        log.info("Salary: " + String.valueOf(s));
         // Get user id
         // roep dan aan gameinfocontroller changeInformation
 
-        //http://localhost:8080/updatesonardata
+        //http://localhost:8080/updatesonardata?project=my:DevCube&useremail=sammeyer1994@hotmail.com
 
     }
 
-    public float getSalary(SonarPush sonarPush){
+    public double getSalary(SonarPush sonarPush, List<Issue> issues){
         Double classComplexity = sonarPush.getClassComplexity();
-        log.info("classComplexity: " + String.valueOf(classComplexity));
         Double fileComplexity = sonarPush.getFileComplexity();
-        log.info("fileComplexity: " + String.valueOf(fileComplexity));
         Double functionComplexity = sonarPush.getFunctionComplexity();
-        log.info("functionComplexity: " + String.valueOf(functionComplexity));
 
         Double technicalDebt = sonarPush.getTechnicalDebt();
-        log.info("technicalDebt: " + String.valueOf(technicalDebt));
-        List<Issue> issues = sonarPush.getIssues();
 
-        float salaryModifiers = (calculateComplexity(classComplexity, fileComplexity, functionComplexity)
+        double salaryModifiers = (calculateComplexity(classComplexity, fileComplexity, functionComplexity)
                 * calculateTechnicalDebt(technicalDebt)
                 * calculateViolation(issues)) /* * calculateCoverage() * calculateDuplication() */  ;
 
         log.info("salaryModifiers: " + String.valueOf(salaryModifiers));
 
-        float salary = (2000 * productivity(1.2f)) * salaryModifiers + getBonus();
+        double salary = (2000 * productivity(1.2f)) * salaryModifiers + getBonus();
 
         return salary;
     }
@@ -56,7 +53,7 @@ public class CalculateSalary {
         Random random = new Random();
         float bonus = 0;
 
-        if (random.nextBoolean()){
+        if (random.nextInt(100) < 10){
             bonus = random.nextInt(250);
             log.info("Bonus: " + String.valueOf(bonus));
         }
@@ -80,7 +77,6 @@ public class CalculateSalary {
 
         return duplicationProcent;
     }
-
 
     private float calculateComplexity(Double classComplexity, Double fileComplexity, Double functionComplexity){
         float complexityProcent = 1;
@@ -116,13 +112,36 @@ public class CalculateSalary {
 
         complexityProcent = functionComplexityProcent * classComplexityProcent * fileComplexityProcent;
 
-        log.info("complexityProcent: " + String.valueOf(complexityProcent));
-
         return complexityProcent;
     }
 
-    private float calculateViolation(List<Issue> issues){
-        float violationProcent = 1;
+    private double calculateViolation(List<Issue> issues){
+        double violationProcent = 1;
+        float minorIssues = 0;
+        float majorIssues = 0;
+        float criticalIssues = 0;
+        float blockerIssues = 0;
+
+
+        for (Issue issue: issues){
+            switch (issue.getSeverity()){
+                case "MINOR":
+                    minorIssues++;
+                    break;
+                case "MAJOR":
+                    majorIssues++;
+                    break;
+                case "CRITICAL":
+                    criticalIssues++;
+                    break;
+                case "BLOCKER":
+                    blockerIssues++;
+                    break;
+
+            }
+        }
+
+        violationProcent = Math.pow(0.7f, blockerIssues) * Math.pow(0.8f, criticalIssues) * Math.pow(0.95f, majorIssues) * Math.pow(0.99f, minorIssues);
 
         return violationProcent;
     }
