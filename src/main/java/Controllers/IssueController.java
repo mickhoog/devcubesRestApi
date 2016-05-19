@@ -32,6 +32,9 @@ public class IssueController {
     @Autowired
     Main.SonarPushRepository sonarRepo;
 
+    @Autowired
+    Main.EmailRepository emailRepo;
+
 	private JsonReader jsonReader = new JsonReader();
     
 	@RequestMapping("/issue")
@@ -67,7 +70,8 @@ public class IssueController {
         // De logic hier achter wordt: haal de laatste sonar push van dit project op, van dat project bijv: getComplexity, en als die lager is dan dat deze push is, heb je het verbeterd! good job :)
         new CalculateSalary(sonarPush, issueList);
         return "Done";
-	}	
+	}
+
 	
     public List<Issue> saveIssues(String url, User user, SonarPush sonarPush){
         List<Issue> issueList = new ArrayList<Issue>();
