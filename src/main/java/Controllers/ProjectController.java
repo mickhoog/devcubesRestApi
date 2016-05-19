@@ -70,4 +70,23 @@ public class ProjectController {
 
         return project;
     }
+    
+    @RequestMapping("/project/delete")
+    public String deleteProject(@RequestParam("projectId") int projectId) {
+    	Project project = repo.findOne(projectId);
+    	repo.delete(projectId);
+    	return "Project " + project.getName() + " has been deleted.";
+    }
+    
+    @RequestMapping("project/deleteUser")
+    public String deleteUserFromProject(@RequestParam("projectId") int projectId,
+            @RequestParam("userId") int userId) {
+    	Project project = repo.findOne(projectId);
+    	User user = userRepository.findOne(userId);
+    	project.getUsers().remove(user);
+    	user.getProjects().remove(project);
+    	userRepository.save(user);
+    	repo.save(project);
+    	return user.getFirst_name() + " is not a part of the project " + project.getName() + " anymore.";
+    }
 }
