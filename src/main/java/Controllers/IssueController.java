@@ -45,7 +45,7 @@ public class IssueController {
 	@RequestMapping("/updatesonardata")
 	public String updateSonar(@RequestParam("project") String projectName,
 							  @RequestParam("useremail") String userEmail) {
-        Project project = prijRepo.findBySonarName(projectName);
+        Project project = prijRepo.findByName(projectName);
         User user = userRepo.findByEmail(userEmail);
         SonarPush sonarPush = new SonarPush();
         sonarPush.setUser(user);
