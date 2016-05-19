@@ -9,6 +9,7 @@ Main\JsonReader.class
 Main\main.class
 Main\SonarPush.class
 Controllers\SonarPushController.class
+Main\HttpConnector.class
 Main\Issue.class
 Main\User.class
 Main\SonarPushRepository.class

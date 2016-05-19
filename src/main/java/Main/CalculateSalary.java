@@ -3,9 +3,6 @@ package Main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.YamlProcessor;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -19,15 +16,18 @@ public class CalculateSalary {
     private IssueRepository repo;
 
     public CalculateSalary(SonarPush sonarPush, List<Issue> issues) {
+        HttpConnector httpConnector = new HttpConnector();
 
         log.info(String.valueOf(issues));
 
-        double s = Math.ceil(getSalary(sonarPush, issues));
-        log.info("Salary: " + String.valueOf(s));
+        double salary = Math.floor(getSalary(sonarPush, issues));
+        log.info("Salary: " + String.valueOf(salary));
         // Get user id
         // roep dan aan gameinfocontroller changeInformation
 
         //http://localhost:8080/updatesonardata?project=my:DevCube&useremail=sammeyer1994@hotmail.com
+
+        httpConnector.sendPost("http://localhost:8080/gameinfo/"+1+"/money/add/"+ salary, "" );
 
     }
 
@@ -44,7 +44,7 @@ public class CalculateSalary {
 
         log.info("salaryModifiers: " + String.valueOf(salaryModifiers));
 
-        double salary = (2000 * productivity(1.2f)) * salaryModifiers + getBonus();
+        double salary = (10 *  productivity(1.2f)) * salaryModifiers + getBonus();
 
         return salary;
     }
@@ -54,7 +54,7 @@ public class CalculateSalary {
         float bonus = 0;
 
         if (random.nextInt(100) < 10){
-            bonus = random.nextInt(250);
+            bonus = random.nextInt(5);
             log.info("Bonus: " + String.valueOf(bonus));
         }
 
