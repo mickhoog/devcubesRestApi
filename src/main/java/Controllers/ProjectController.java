@@ -1,7 +1,11 @@
 package Controllers;
 
+import Main.HttpConnector;
 import Main.Project;
+import Main.SonarPush;
 import Main.User;
+
+import org.hibernate.mapping.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashSet;
 import java.util.List;
 @ComponentScan(basePackages = {"Models"})
 @RestController
@@ -21,7 +27,12 @@ public class ProjectController {
 
     @Autowired
     Main.UserRepository userRepository;
-
+    
+    @Autowired
+    Main.SonarPushRepository sonarRepo;
+    
+    private final String sonarDeleteUrl = "http://localhost:8080/sonarpush/delete";
+    
     // Get all users
     @RequestMapping("/project")
     public List<Project> books() {
@@ -74,6 +85,15 @@ public class ProjectController {
     @RequestMapping("/project/delete")
     public String deleteProject(@RequestParam("projectId") int projectId) {
     	Project project = repo.findOne(projectId);
+    	//alle sonarpushes ontkoppelen
+    	HttpConnector hp = new HttpConnector();
+    	List<SonarPush> sonarPushes = project.getSonarPushes();
+    	for(int i = 0; i < sonarPushes.size(); i++) {
+    		SonarPush s = sonarPushes.get(i);
+    		hp.sendPost(sonarDeleteUrl, "sonarPushId="+s.getId());
+    	}
+    	//alle users ontkoppelen
+    	userRepository.delete(project.getUsers());
     	repo.delete(projectId);
     	return "Project " + project.getName() + " has been deleted.";
     }

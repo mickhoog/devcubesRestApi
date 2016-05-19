@@ -3,7 +3,9 @@ package Main;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+
 import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -13,7 +15,7 @@ public class Project {
     private String description;
     private Date start_date;
     private Set<User> users;
-    private Set<SonarPush> sonarPushes;
+    private List<SonarPush> sonarPushes;
     private String sonarName;
 
     public Project(){
@@ -93,10 +95,10 @@ public class Project {
 
     @JsonIgnoreProperties({"project"})
     @OneToMany(mappedBy = "project")
-    public Set<SonarPush> getSonarPushes() {
+    public List<SonarPush> getSonarPushes() {
         return sonarPushes;
     }
-    public void setSonarPushes(Set<SonarPush> sonarPushes) {
+    public void setSonarPushes(List<SonarPush> sonarPushes) {
         this.sonarPushes = sonarPushes;
     }
     

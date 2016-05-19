@@ -2,18 +2,23 @@ package Controllers;
 
 import Main.Issue;
 import Main.SonarPush;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class SonarPushController {
     @Autowired
-    static
     Main.SonarPushRepository repo;
+    
+    @Autowired 
+    Main.IssueRepository issueRepo;
 
     // Get all users
     @RequestMapping("/sonarpush")
@@ -26,7 +31,17 @@ public class SonarPushController {
         return repo.findOne(id);
     }
 
+    @RequestMapping("sonarpush/delete")
+    public void deleteSonarPush(@RequestParam("sonarPushId") int id) {
+    	SonarPush sp = repo.findOne(id);
+    	//alle issues eerst ontkoppelen
+    	issueRepo.delete(sp.getIssues());
+    	repo.delete(sp);
+    }
+ 
+    /*
     public static List<Issue> getIssuesCont(int id){
         return repo.getOne(id).getIssues();
     }
+    */
 }

@@ -39,8 +39,6 @@ public class IssueController {
 		return issueRepo.findAll();
 	}
 
-
-
 	//updates sonar data in database
 	@RequestMapping("/updatesonardata")
 	public String updateSonar(@RequestParam("project") String projectName,
