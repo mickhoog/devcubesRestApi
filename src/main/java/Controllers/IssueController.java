@@ -62,7 +62,7 @@ public class IssueController {
         String complexityTechDebtUrl = "http://145.24.222.130:9000/api/resources/index?resource="+sonarPushName+"&metrics=complexity,class_complexity,file_complexity,function_complexity,sqale_index,sqale_debt_ratio&format=json";
 
         getComplexityAndTechnicalDebt(complexityTechDebtUrl, sonarPush);
-        //sonarRepo.save(sonarPush);
+        sonarRepo.save(sonarPush);
         List<Issue> issueList = saveIssues(issuesUrl, user, sonarPush);
 
         // Call script van harmen voor cijfer.
@@ -84,11 +84,10 @@ public class IssueController {
                     String debt = "";
                     if (issue.keySet().contains("debt"))
                         debt = issue.get("debt").toString();
-                    // if issue.key(flow) == bestaand
 
                     Issue newIssue = new Issue(issue.get("severity").toString(), issue.get("component").toString(), issue.get("message").toString(), debt, sonarPush);
                     issueList.add(newIssue);
-                    //issueRepo.save(newIssue);
+                    issueRepo.save(newIssue);
                 }
             }
         } catch(Exception e) {
