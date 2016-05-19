@@ -13,7 +13,6 @@ public class GameInfoController {
     @Autowired
     Main.GameInformationRepository repo;
 
-    //
     @RequestMapping(value = "gameinfo/{id}/{property}/{kind}/{amount}")
     public GameInformation changeInformation(@PathVariable("id") int id,
                                              @PathVariable("property") String property,

@@ -3,17 +3,20 @@ package Main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by Harmen on 12-5-2016.
- */
+
 public class CalculateSalary {
     private static final Logger log = LoggerFactory.getLogger(CalculateSalary.class);
 
     @Autowired
     private IssueRepository repo;
+
+    @Autowired
+    private EmailRepository emailRepo;
 
     public CalculateSalary(SonarPush sonarPush, List<Issue> issues) {
         HttpConnector httpConnector = new HttpConnector();
@@ -27,7 +30,9 @@ public class CalculateSalary {
 
         //http://localhost:8080/updatesonardata?project=my:DevCube&useremail=sammeyer1994@hotmail.com
 
-        httpConnector.sendPost("http://localhost:8080/gameinfo/"+1+"/money/add/"+ salary, "" );
+        httpConnector.sendPost("http://localhost:8080/gameinfo/"+sonarPush.getUser().getId()+"/money/add/"+ salary, "" );
+
+        httpConnector.sendPost("http://localhost:8080/email/new?", "salary="+salary+"&userId=" + sonarPush.getUser().getId());
 
     }
 
