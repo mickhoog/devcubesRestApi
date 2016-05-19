@@ -18,7 +18,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.List;
-@ComponentScan(basePackages = {"Models"})
 @RestController
 public class ProjectController {
 
