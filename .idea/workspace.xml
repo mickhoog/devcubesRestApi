@@ -7,8 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9548dd18-6f80-468f-bc4f-887933d17f6c" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/classes/artifacts/hellomaven_jar/hellomaven.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application.properties" afterPath="$PROJECT_DIR$/target/classes/application.properties" />
     </list>
     <ignored path="hellomaven.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -334,20 +334,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="devcubesRestApi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hellomaven" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="devcubesRestApi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="target" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1083,7 +1069,7 @@
       <workItem from="1463504833427" duration="4367000" />
       <workItem from="1463558764297" duration="5487000" />
       <workItem from="1463589873732" duration="33000" />
-      <workItem from="1463649014629" duration="2506000" />
+      <workItem from="1463649014629" duration="2563000" />
     </task>
     <task id="LOCAL-00001" summary="Toegevoegd: Project class / controller / repository&#10;&#10;Een meer op meer relatie gemaakt tussen User &amp; Project.&#10;&#10;Json ignore toegevoegd zodat er geen infinite loop ontstaat.&#10;&#10;geupdate database met rows staat in de db.sql file.">
       <created>1460732590294</created>
@@ -1155,11 +1141,18 @@
       <option name="project" value="LOCAL" />
       <updated>1463651390768</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Jar build, push to server">
+      <created>1463651716721</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1463651716721</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56053000" />
+    <option name="totallyTimeSpent" value="56110000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1171,7 +1164,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
