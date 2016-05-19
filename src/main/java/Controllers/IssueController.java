@@ -66,8 +66,6 @@ public class IssueController {
         sonarRepo.save(sonarPush);
         List<Issue> issueList = saveIssues(issuesUrl, user, sonarPush);
 
-        // Call script van harmen voor cijfer.
-        // De logic hier achter wordt: haal de laatste sonar push van dit project op, van dat project bijv: getComplexity, en als die lager is dan dat deze push is, heb je het verbeterd! good job :)
         new CalculateSalary(sonarPush, issueList);
         return "Done";
 	}
@@ -81,13 +79,15 @@ public class IssueController {
             JSONArray issues = jsonReader.readJsonComponent(url + "&" + paramPageSize, "issues");
             for (int i=0; i < issues.size(); i++) {
                 JSONObject issue = (JSONObject) issues.get(i);
-
                 if(issue.get("author").toString().equals(user.getEmail())){
                     String debt = "";
                     if (issue.keySet().contains("debt"))
                         debt = issue.get("debt").toString();
 
-                    Issue newIssue = new Issue(issue.get("severity").toString(), issue.get("component").toString(), issue.get("message").toString(), debt, sonarPush);
+                    Issue newIssue = new Issue(issue.get("severity").toString(), 
+                    						   issue.get("component").toString(), 
+                    						   issue.get("message").toString(), 
+                    						   debt, sonarPush);
                     issueList.add(newIssue);
                     issueRepo.save(newIssue);
                 }

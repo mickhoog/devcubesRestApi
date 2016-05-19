@@ -27,6 +27,11 @@ public class UserController {
     public User user(@PathVariable("id") int id) {
         return repo.findOne(id);
     }
+    
+    @RequestMapping("user/email/{email}")
+    public User findUserByEmail(@PathVariable("email") String email) {
+    	return repo.findByEmail(email);
+    }
 
     // Create an user
     @RequestMapping("/user/create")
@@ -59,7 +64,15 @@ public class UserController {
     public Boolean checkPassword(@PathVariable("username") String username,
                                  @PathVariable("password") String password){
         User user = repo.findByUsername(username);
-
         return user.getPassword().equals(password);
     }
+    
+    @RequestMapping("/changepassword")
+    public User changePassword(@RequestParam("userId") int userId, @RequestParam("password") String password) {
+    	User user = repo.findOne(userId);
+    	user.setPassword(password);
+    	repo.save(user);
+    	return user;
+    }
+    
 }
