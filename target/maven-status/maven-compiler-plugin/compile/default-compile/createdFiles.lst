@@ -20,3 +20,4 @@ Main\Issue.class
 Main\User.class
 Main\SonarPushRepository.class
 Main\Project.class
+Controllers\EmailController.class
