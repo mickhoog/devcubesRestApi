@@ -35,7 +35,7 @@ public class IssueController {
     @Autowired
     Main.EmailRepository emailRepo;
 
-	private JsonReader jsonReader = new JsonReader();
+	private WebJsonReader jsonReader = new WebJsonReader();
     
 	@RequestMapping("/issue")
 	public List<Issue> issues() {
