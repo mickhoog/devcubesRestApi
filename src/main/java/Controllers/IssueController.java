@@ -42,6 +42,14 @@ public class IssueController {
 		return issueRepo.findAll();
 	}
 
+    @RequestMapping("/sonarpush/setSalary")
+    public void setSonarPushSalary(@RequestParam("salary") Double salary,
+                                   @RequestParam("id") int id){
+        SonarPush sonarPush = sonarRepo.findOne(id);
+        sonarPush.setSalary(salary);
+        sonarRepo.save(sonarPush);
+    }
+
 	//updates sonar data in database
 	@RequestMapping("/updatesonardata")
 	public String updateSonar(@RequestParam("project") String projectName,

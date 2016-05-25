@@ -1,5 +1,6 @@
 package Main;
 
+import Controllers.IssueController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
+import Controllers.IssueController;
 
 public class CalculateSalary {
     private static final Logger log = LoggerFactory.getLogger(CalculateSalary.class);
@@ -33,6 +34,8 @@ public class CalculateSalary {
         httpConnector.sendPost("http://localhost:8080/gameinfo/"+sonarPush.getUser().getId()+"/money/add/"+ salary, "" );
 
         httpConnector.sendPost("http://localhost:8080/email/new?", "salary="+salary+"&userId=" + sonarPush.getUser().getId());
+
+        httpConnector.sendPost("http://localhost:8080/sonarpush/setSalary?", "salary="+salary+"&id=" + sonarPush.getId());
 
     }
 
