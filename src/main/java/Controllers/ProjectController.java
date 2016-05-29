@@ -81,11 +81,11 @@ public class ProjectController {
     public String deleteProject(@RequestParam("projectId") int projectId) {
     	Project project = repo.findOne(projectId);
     	//alle sonarpushes ontkoppelen
-    	HttpConnector hp = new HttpConnector();
+    	HttpConnector hp = new HttpConnector("user", "c1cc6367-5c10-4d76-955e-d58678eeb1f8");
     	List<SonarPush> sonarPushes = project.getSonarPushes();
     	for(int i = 0; i < sonarPushes.size(); i++) {
     		SonarPush s = sonarPushes.get(i);
-    		hp.sendPost(sonarDeleteUrl, "sonarPushId="+s.getId());
+    		hp.sendPost(sonarDeleteUrl, "sonarPushId="+s.getId(), true);
     	}
     	//alle users ontkoppelen
     	userRepository.delete(project.getUsers());
