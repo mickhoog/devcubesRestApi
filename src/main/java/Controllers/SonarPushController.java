@@ -38,10 +38,12 @@ public class SonarPushController {
     	issueRepo.delete(sp.getIssues());
     	repo.delete(sp);
     }
- 
-    /*
-    public static List<Issue> getIssuesCont(int id){
-        return repo.getOne(id).getIssues();
+    
+    @RequestMapping("/sonarpush/setSalary")
+    public void setSonarPushSalary(@RequestParam("salary") Double salary,
+                                   @RequestParam("id") int id){
+        SonarPush sonarPush = repo.findOne(id);
+        sonarPush.setSalary(salary);
+        repo.save(sonarPush);
     }
-    */
 }
