@@ -81,10 +81,10 @@ public class UserControllerTest {
 	}
 	
 	@Test
-	public void testCreateUser() throws Exception {
-		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(this.userController).build();
+	public void testCreateUserMustCreateUser() throws Exception {
 		mockMvc.perform(post("/user/create").param("firstname", "eddy").param("lastname", "murphy").param("email", "e@hotmail.com").param("password", "123pass").param("username", "eddy"))
-				.andExpect(status().isOk());		
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.first_name", is("eddy")));		
 	}
 	
 	@Test
