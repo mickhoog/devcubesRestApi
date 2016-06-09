@@ -69,16 +69,13 @@ public class UserControllerTest {
 		user2.setUsername("john");
 		user2.setEmail("john@hotmail.com");
 		this.user2 = user2;
-		ArrayList<User> l = new ArrayList<User>();
-		l.add(user);
-		l.add(user2);
+
 		mockMvc = MockMvcBuilders.standaloneSetup(this.userController).build();
-		Mockito.when(userController.user()).thenReturn(l);
-		Mockito.when(this.userController.saveUser(user.getFirst_name(), user.getLast_name(), user.getEmail(), user.getPassword(), user.getUsername())).thenReturn(this.user);		
 	}
 	
 	@Test
 	public void testCreateUserMustCreateUser() throws Exception {
+		Mockito.when(this.userController.saveUser(user.getFirst_name(), user.getLast_name(), user.getEmail(), user.getPassword(), user.getUsername())).thenReturn(this.user);		
 		mockMvc.perform(post("/user/create").param("firstname", "eddy").param("lastname", "murphy").param("email", "e@hotmail.com").param("password", "123pass").param("username", "eddy"))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.first_name", is("eddy")));		
@@ -86,6 +83,10 @@ public class UserControllerTest {
 	
 	@Test
 	public void testUsersMustReturnAllUsers() throws Exception {
+		ArrayList<User> l = new ArrayList<User>();
+		l.add(user);
+		l.add(user2);
+		Mockito.when(userController.user()).thenReturn(l);
 		mockMvc.perform(get("/user"))
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("$", hasSize(2)))
@@ -94,8 +95,14 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$[0].first_name", is(user.getFirst_name())))
 		.andExpect(jsonPath("$[1].id", is(2)))
 		.andExpect(jsonPath("$[1].email", is(user2.getEmail())))
-		.andExpect(jsonPath("$[1].first_name", is(user2.getFirst_name())));
-		
-		
+		.andExpect(jsonPath("$[1].first_name", is(user2.getFirst_name())));		
+	}
+	
+	@Test
+	public void findUserByIdMustReturnCorrectUser() throws Exception{
+		Mockito.when(userController.user(user.getId())).thenReturn(user);
+		mockMvc.perform(get("/user/1"))
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.email", is(user.getEmail())));
 	}
 }
