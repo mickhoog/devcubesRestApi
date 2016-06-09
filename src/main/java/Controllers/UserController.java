@@ -22,6 +22,11 @@ public class UserController {
         return repo.findAll();
     }
 
+    @RequestMapping("/user/username/{username}")
+    public int getUserByUsername(@PathVariable("username") String username){
+        return repo.findByUsername(username).getId();
+    }
+
     // Get user by id
     @RequestMapping("/user/{id}")
     public User user(@PathVariable("id") int id) {

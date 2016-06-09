@@ -20,6 +20,7 @@ public class SonarPush {
 	private Double functionComplexity;
 	private Double technicalDebt;
 
+	private Double salary;
 
 	public SonarPush(){}
 
@@ -35,6 +36,10 @@ public class SonarPush {
 		this.functionComplexity = functionComplexity;
 	}
 
+	public static SonarPush Create() {
+		return new SonarPush();
+	}
+	
 	@Override
 	public String toString() {
 		return "SonarPush{" +
@@ -130,5 +135,13 @@ public class SonarPush {
 
 	public void setTechnicalDebt(Double technicalDebt) {
 		this.technicalDebt = technicalDebt;
+	}
+
+	public Double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Double salary) {
+		this.salary = salary;
 	}
 }

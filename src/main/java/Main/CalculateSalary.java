@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Random;
 
-
 public class CalculateSalary {
     private static final Logger log = LoggerFactory.getLogger(CalculateSalary.class);
 
@@ -18,15 +17,22 @@ public class CalculateSalary {
     private EmailRepository emailRepo;
 
     public CalculateSalary(SonarPush sonarPush, List<Issue> issues) {
-        HttpConnector httpConnector = new HttpConnector();
+        HttpConnector httpConnector = new HttpConnector("user", "c1cc6367-5c10-4d76-955e-d58678eeb1f8");
 
         log.info(String.valueOf(issues));
 
         double salary = Math.floor(getSalary(sonarPush, issues));
         log.info("Salary: " + String.valueOf(salary));
+        // Get user id
+        // roep dan aan gameinfocontroller changeInformation
 
-        httpConnector.sendPost("http://localhost:8080/gameinfo/"+sonarPush.getUser().getId()+"/money/add/"+ salary, "" );
-        httpConnector.sendPost("http://localhost:8080/email/new?", "salary="+salary+"&userId=" + sonarPush.getUser().getId());
+        //http://localhost:8080/updatesonardata?project=my:DevCube&useremail=sammeyer1994@hotmail.com
+
+        httpConnector.sendPost("http://localhost:8080/gameinfo/"+sonarPush.getUser().getId()+"/money/add/"+ salary, "", true);
+
+        httpConnector.sendPost("http://localhost:8080/email/new?", "salary="+salary+"&userId=" + sonarPush.getUser().getId(), true);
+
+        httpConnector.sendPost("http://localhost:8080/sonarpush/setSalary?", "salary="+salary+"&id=" + sonarPush.getId(), true);
 
     }
 

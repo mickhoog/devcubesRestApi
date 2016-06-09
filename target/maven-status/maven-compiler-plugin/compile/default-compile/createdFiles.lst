@@ -1,4 +1,5 @@
 Controllers\ProjectController.class
+Main\WebJsonReader.class
 Main\UserRepository.class
 Main\IssueRepository.class
 Main\CalculateSalary.class
@@ -20,3 +21,4 @@ Main\Issue.class
 Main\User.class
 Main\SonarPushRepository.class
 Main\Project.class
+Controllers\EmailController.class

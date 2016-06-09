@@ -15,11 +15,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.json.simple.parser.ParseException;
+import java.io.IOException;
+
 @RestController
 public class IssueController {
 
     private static final Logger log = LoggerFactory.getLogger(IssueController.class);
-
+    private final String apiUrl = "http://145.24.222.130:9000/api/";
+    
     @Autowired
     Main.ProjectRepository prijRepo;
 
@@ -35,7 +39,7 @@ public class IssueController {
     @Autowired
     Main.EmailRepository emailRepo;
 
-	private JsonReader jsonReader = new JsonReader();
+	private WebJsonReader jsonReader = new WebJsonReader();
     
 	@RequestMapping("/issue")
 	public List<Issue> issues() {
@@ -48,30 +52,32 @@ public class IssueController {
 							  @RequestParam("useremail") String userEmail) {
         Project project = prijRepo.findByName(projectName);
         User user = userRepo.findByEmail(userEmail);
-        SonarPush sonarPush = new SonarPush();
-        sonarPush.setUser(user);
-        sonarPush.setProject(project);
-
-        java.util.Date newDate = new Date();
-        Timestamp param = new Timestamp(newDate.getTime());
-        log.info(String.valueOf(param));
-
-        sonarPush.setDate(param);
-
-        String sonarPushName = project.getSonarName();
-        String issuesUrl = "http://145.24.222.130:9000/api/issues/search?statuses=OPEN&projects="+sonarPushName;
-        String complexityTechDebtUrl = "http://145.24.222.130:9000/api/resources/index?resource="+sonarPushName+"&metrics=complexity,class_complexity,file_complexity,function_complexity,sqale_index,sqale_debt_ratio&format=json";
-
-        getComplexityAndTechnicalDebt(complexityTechDebtUrl, sonarPush);
+        SonarPush sonarPush = getNewPush(user, project);
+        
+        String sonarProjectName = project.getSonarName();
+        String complexityTechDebtUrl = apiUrl + "resources/index?resource="+sonarProjectName+"&metrics=complexity,class_complexity,file_complexity,function_complexity,sqale_index,sqale_debt_ratio&format=json";
+        String issuesUrl = apiUrl + "issues/search?statuses=OPEN&projects="+sonarProjectName;
+        
+        updatePushProperties(complexityTechDebtUrl, sonarPush);
         sonarRepo.save(sonarPush);
-        List<Issue> issueList = saveIssues(issuesUrl, user, sonarPush);
-
+        List<Issue> issueList = saveIssues(issuesUrl, sonarPush);
+        log.info(issueList.size() + " issues found");
         new CalculateSalary(sonarPush, issueList);
         return "Done";
 	}
 
 	
-    public List<Issue> saveIssues(String url, User user, SonarPush sonarPush){
+	private SonarPush getNewPush(User user, Project project) {
+        SonarPush sonarPush = SonarPush.Create();
+        sonarPush.setUser(user);
+        sonarPush.setProject(project);
+        java.util.Date newDate = new Date();
+        Timestamp param = new Timestamp(newDate.getTime());
+        sonarPush.setDate(param);	
+        return sonarPush;
+	}
+	
+    public List<Issue> saveIssues(String url, SonarPush sonarPush){
         List<Issue> issueList = new ArrayList<Issue>();
         try {
             JSONObject jobject = jsonReader.readJson(url);
@@ -79,7 +85,7 @@ public class IssueController {
             JSONArray issues = jsonReader.readJsonComponent(url + "&" + paramPageSize, "issues");
             for (int i=0; i < issues.size(); i++) {
                 JSONObject issue = (JSONObject) issues.get(i);
-                if(issue.get("author").toString().equals(user.getEmail())){
+                if(issue.get("author").toString().equals(sonarPush.getUser().getEmail())){
                     String debt = "";
                     if (issue.keySet().contains("debt"))
                         debt = issue.get("debt").toString();
@@ -98,14 +104,14 @@ public class IssueController {
         return issueList;
     }
 
-    public void getComplexityAndTechnicalDebt(String url, SonarPush sonarPush){
+    public void updatePushProperties(String url, SonarPush sonarPush){
         try {           
             JSONArray array = jsonReader.readJsonArray(url);            
-            for(int n = 0; n < array.size(); n++){
-                JSONObject object = (JSONObject) array.get(n);
+            for(int i = 0; i < array.size(); i++){
+                JSONObject object = (JSONObject) array.get(i);
                 JSONArray ar = (JSONArray) object.get("msr");
-                for(int i = 0; i < ar.size(); i++){;
-                    JSONObject obj = (JSONObject) ar.get(i);
+                for(Object msr : ar){
+                    JSONObject obj = (JSONObject) msr;
                     switch (obj.get("key").toString()){
                         case "complexity":
                             sonarPush.setOverallComplexity((Double) obj.get("val"));
@@ -125,7 +131,9 @@ public class IssueController {
                     }
                 }
             }            
-        } catch(Exception e) {
+        } catch(ParseException e) {
+            e.printStackTrace();
+        }catch(IOException e) {
             e.printStackTrace();
         }
     }
