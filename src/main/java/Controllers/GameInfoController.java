@@ -39,20 +39,28 @@ public class GameInfoController {
         return current;
     }
 
-    // Upgrade pc
-    //RequestMapping("/gameinfo/upgrade/pc")
-
-    // Finds all gameinformation
+    /**
+     * Finds all gameinformation
+     * @return all gameinformation
+     */
     @RequestMapping("/gameinfo")
     public List<GameInformation> gameInfo() {
         return repo.findAll();
     }
 
-    // Find gameinformation by id
+    /**
+     * Find one gameinformation by id
+     * @param id
+     * @return gameinformation of user by id
+     */
     @RequestMapping("/gameinfo/{id}")
     public GameInformation gameInformationById(@PathVariable("id") int id){ return repo.findOne(id); }
 
-    // Finds all the users that have more money than 'Amount'
+    /**
+     * Finds all the users that have more money than 'Amount'
+     * @param amount
+     * @return list of gameinformation
+     */
     @RequestMapping("/gameinfo/money/more/{amount}")
     public List<GameInformation> gameInforMoney(@PathVariable("amount") int amount){return repo.findByMoneyGreaterThan(amount); }
 }

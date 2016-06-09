@@ -20,6 +20,12 @@ public class EmailController {
     @Autowired
     Main.EmailRepository emailRepo;
 
+    /**
+     * Creates a new email and saves it in the database
+     * @param salary
+     * @param userId
+     * @return New email
+     */
     @RequestMapping(value = "/email/new")
     public Email createEmail(@RequestParam("salary") Double salary,
                              @RequestParam("userId") int userId){
@@ -44,6 +50,11 @@ public class EmailController {
         return email;
     }
 
+    /**
+     * Finds list of emails from user by their id
+     * @param id
+     * @return List of emails from user
+     */
     @RequestMapping("/email/{id}")
     public List<Email> findEmailsId(@PathVariable("id") int id){
         List<Email> emails = emailRepo.findByUserId(id);

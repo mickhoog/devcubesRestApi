@@ -66,7 +66,12 @@ public class IssueController {
         return "Done";
 	}
 
-	
+    /**
+     * Creates a new sonarpush, sets user, project and date
+     * @param user
+     * @param project
+     * @return newly created sonarpush
+     */
 	private SonarPush getNewPush(User user, Project project) {
         SonarPush sonarPush = SonarPush.Create();
         sonarPush.setUser(user);
@@ -76,7 +81,13 @@ public class IssueController {
         sonarPush.setDate(param);	
         return sonarPush;
 	}
-	
+
+    /**
+     * Goes to given url, gets the issues from that page and adds them to the sonarpush
+     * @param url
+     * @param sonarPush
+     * @return sonarpush added with all the issues
+     */
     public List<Issue> saveIssues(String url, SonarPush sonarPush){
         List<Issue> issueList = new ArrayList<Issue>();
         try {
