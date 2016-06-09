@@ -1,5 +1,8 @@
 package hellomaven;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,13 +10,16 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import Controllers.UserController;
 import Main.User;
 import Main.UserRepository;
@@ -45,6 +51,8 @@ public class UserControllerTest {
 	
 	
 	private User user;
+	private User user2;
+	private MockMvc mockMvc;
 	
 	@Before
 	public void setup() throws Exception {
@@ -55,12 +63,21 @@ public class UserControllerTest {
 		user.setLast_name("murphy");
 		user.setUsername("eddy");
 		user.setEmail("e@hotmail.com");
-		
 		this.user = user;
-		
-		Mockito.when(this.userController.saveUser(user.getFirst_name(), user.getLast_name(), user.getEmail(), user.getPassword(), user.getUsername())).thenReturn(this.user);
-		Mockito.when(this.userController.findUserByEmail(user.getEmail())).thenReturn(this.user);
-		
+		User user2 = new User();
+		user2.setId(2);
+		user2.setPassword("secretPass");
+		user2.setFirst_name("john");
+		user2.setLast_name("secondUser");
+		user2.setUsername("john");
+		user2.setEmail("john@hotmail.com");
+		this.user2 = user2;
+		ArrayList<User> l = new ArrayList<User>();
+		l.add(user);
+		l.add(user2);
+		mockMvc = MockMvcBuilders.standaloneSetup(this.userController).build();
+		Mockito.when(userController.user()).thenReturn(l);
+		Mockito.when(this.userController.saveUser(user.getFirst_name(), user.getLast_name(), user.getEmail(), user.getPassword(), user.getUsername())).thenReturn(this.user);		
 	}
 	
 	@Test
@@ -71,10 +88,16 @@ public class UserControllerTest {
 	}
 	
 	@Test
-	public void testFindUserByEmail() throws Exception {
-		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(this.userController).build();
-		mockMvc.perform(get("/user/email/e@hotmail.com"))
-		.andExpect(status().isOk());
+	public void testUsersMustReturnAllUsers() throws Exception {
+		mockMvc.perform(get("/user"))
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$", hasSize(2)))
+		.andExpect(jsonPath("$[0].id", is(1)))
+		.andExpect(jsonPath("$[0].email", is(user.getEmail())))
+		.andExpect(jsonPath("$[0].first_name", is(user.getFirst_name())))
+		.andExpect(jsonPath("$[1].id", is(2)))
+		.andExpect(jsonPath("$[1].email", is(user2.getEmail())))
+		.andExpect(jsonPath("$[1].first_name", is(user2.getFirst_name())));
 		
 		
 	}

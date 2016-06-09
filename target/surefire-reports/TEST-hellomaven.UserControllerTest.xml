@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="hellomaven.UserControllerTest" time="3.718" tests="2" errors="0" skipped="0" failures="0">
+<testsuite name="hellomaven.UserControllerTest" time="1.594" tests="2" errors="1" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_77\jre\bin"/>
@@ -62,6 +62,74 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86"/>
   </properties>
-  <testcase name="testCreateUser" classname="hellomaven.UserControllerTest" time="2.812"/>
-  <testcase name="testFindUserByEmail" classname="hellomaven.UserControllerTest" time="0.906"/>
+  <testcase name="testCreateUser" classname="hellomaven.UserControllerTest" time="0.797"/>
+  <testcase name="testFindUserByEmail" classname="hellomaven.UserControllerTest" time="0.797">
+    <error message="com/jayway/jsonpath/InvalidPathException" type="java.lang.NoClassDefFoundError"><![CDATA[java.lang.NoClassDefFoundError: com/jayway/jsonpath/InvalidPathException
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.springframework.test.web.servlet.result.JsonPathResultMatchers.<init>(JsonPathResultMatchers.java:52)
+	at org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath(MockMvcResultMatchers.java:192)
+	at hellomaven.UserControllerTest.testFindUserByEmail(UserControllerTest.java:79)
+]]></error>
+    <system-out><![CDATA[17:30:48.782 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [hellomaven.UserControllerTest]
+17:30:48.782 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [hellomaven.UserControllerTest]
+17:30:48.782 [main] DEBUG o.s.t.c.s.DependencyInjectionTestExecutionListener - Performing dependency injection for test context [[DefaultTestContext@1b0fd6f testClass = UserControllerTest, testInstance = hellomaven.UserControllerTest@1f49060, testMethod = [null], testException = [null], mergedContextConfiguration = [MergedContextConfiguration@17942a1 testClass = UserControllerTest, locations = '{}', classes = '{class hellomaven.UserControllerTest$UserControllerTestConfiguration}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]]]].
+17:30:48.782 [main] DEBUG o.s.t.c.c.DefaultCacheAwareContextLoaderDelegate - Retrieved ApplicationContext from cache with key [[MergedContextConfiguration@17942a1 testClass = UserControllerTest, locations = '{}', classes = '{class hellomaven.UserControllerTest$UserControllerTestConfiguration}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]]]
+17:30:48.782 [main] DEBUG o.springframework.test.context.cache - Spring test ApplicationContext cache statistics: [DefaultContextCache@1a0aa7d size = 1, parentContextCount = 0, hitCount = 1, missCount = 1]
+17:30:48.782 [main] DEBUG o.s.b.f.annotation.InjectionMetadata - Processing injected element of bean 'hellomaven.UserControllerTest': AutowiredFieldElement for private Controllers.UserController hellomaven.UserControllerTest.userController
+17:30:48.782 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'userController'
+17:30:48.782 [main] DEBUG o.s.b.f.annotation.InjectionMetadata - Processing injected element of bean 'hellomaven.UserControllerTest': AutowiredFieldElement for private Main.UserRepository hellomaven.UserControllerTest.userRepository
+17:30:48.782 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Returning cached instance of singleton bean 'userRepository'
+17:30:48.782 [main] DEBUG o.s.t.c.s.AbstractDirtiesContextTestExecutionListener - Before test method: context [DefaultTestContext@1b0fd6f testClass = UserControllerTest, testInstance = hellomaven.UserControllerTest@1f49060, testMethod = testFindUserByEmail@UserControllerTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@17942a1 testClass = UserControllerTest, locations = '{}', classes = '{class hellomaven.UserControllerTest$UserControllerTestConfiguration}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]]], class annotated with @DirtiesContext [false] with mode [null], method annotated with @DirtiesContext [false] with mode [null].
+17:30:48.782 [main] DEBUG o.s.core.env.StandardEnvironment - Adding [systemProperties] PropertySource with lowest search precedence
+17:30:48.782 [main] DEBUG o.s.core.env.StandardEnvironment - Adding [systemEnvironment] PropertySource with lowest search precedence
+17:30:48.782 [main] DEBUG o.s.core.env.StandardEnvironment - Initialized StandardEnvironment with PropertySources [systemProperties,systemEnvironment]
+17:30:48.782 [main] DEBUG o.s.t.w.s.s.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Looking for request mappings in application context: org.springframework.test.web.servlet.setup.StubWebApplicationContext@f4e0bf
+17:30:48.798 [main] DEBUG o.s.t.w.s.s.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - 9 request handler methods found on class Controllers.UserController: {public Main.User Controllers.UserController.user(int)={[/user/{id}]}, public java.util.List Controllers.UserController.user()={[/user]}, public Main.User Controllers.UserController.saveUser(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)={[/user/create]}, public Main.User Controllers.UserController.findUserByEmail(java.lang.String)={[/user/email/{email}]}, public Main.User Controllers.UserController.changePassword(int,java.lang.String)={[/changepassword]}, public void Controllers.UserController.deleteUser(int)={[/user/delete/{id}]}, public java.util.List Controllers.UserController.findUsers(int)={[/user/findUsersOfProject/{id}]}, public java.lang.Boolean Controllers.UserController.checkPassword(java.lang.String,java.lang.String)={[/user/checkpassword/{username}/{password}]}, public int Controllers.UserController.getUserByUsername(java.lang.String)={[/user/username/{username}]}}
+17:30:48.798 [main] INFO  o.s.t.w.s.s.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Mapped "{[/user/{id}]}" onto public Main.User Controllers.UserController.user(int)
+17:30:48.798 [main] INFO  o.s.t.w.s.s.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Mapped "{[/user]}" onto public java.util.List<Main.User> Controllers.UserController.user()
+17:30:48.798 [main] INFO  o.s.t.w.s.s.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Mapped "{[/user/create]}" onto public Main.User Controllers.UserController.saveUser(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+17:30:48.814 [main] INFO  o.s.t.w.s.s.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Mapped "{[/user/email/{email}]}" onto public Main.User Controllers.UserController.findUserByEmail(java.lang.String)
+17:30:48.814 [main] INFO  o.s.t.w.s.s.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Mapped "{[/changepassword]}" onto public Main.User Controllers.UserController.changePassword(int,java.lang.String)
+17:30:48.814 [main] INFO  o.s.t.w.s.s.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Mapped "{[/user/delete/{id}]}" onto public void Controllers.UserController.deleteUser(int)
+17:30:48.814 [main] INFO  o.s.t.w.s.s.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Mapped "{[/user/findUsersOfProject/{id}]}" onto public java.util.List<Main.User> Controllers.UserController.findUsers(int)
+17:30:48.814 [main] INFO  o.s.t.w.s.s.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Mapped "{[/user/checkpassword/{username}/{password}]}" onto public java.lang.Boolean Controllers.UserController.checkPassword(java.lang.String,java.lang.String)
+17:30:48.814 [main] INFO  o.s.t.w.s.s.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Mapped "{[/user/username/{username}]}" onto public int Controllers.UserController.getUserByUsername(java.lang.String)
+17:30:48.845 [main] DEBUG o.h.v.i.e.r.DefaultTraversableResolver - Found javax.persistence.Persistence on classpath containing 'getPersistenceUtil'. Assuming JPA 2 environment. Trying to instantiate JPA aware TraversableResolver
+17:30:48.845 [main] DEBUG o.h.v.i.e.r.DefaultTraversableResolver - Instantiated JPA aware TraversableResolver of type org.hibernate.validator.internal.engine.resolver.JPATraversableResolver.
+17:30:48.845 [main] DEBUG o.h.v.i.engine.ConfigurationImpl - Setting custom MessageInterpolator of type org.springframework.validation.beanvalidation.LocaleContextMessageInterpolator
+17:30:48.845 [main] DEBUG o.h.v.i.engine.ConfigurationImpl - Setting custom ParameterNameProvider of type com.sun.proxy.$Proxy25
+17:30:48.845 [main] DEBUG o.h.v.i.xml.ValidationXmlParser - Trying to load META-INF/validation.xml for XML based Validator configuration.
+17:30:48.845 [main] DEBUG o.h.v.i.xml.ResourceLoaderHelper - Trying to load META-INF/validation.xml via TCCL
+17:30:48.845 [main] DEBUG o.h.v.i.xml.ResourceLoaderHelper - Trying to load META-INF/validation.xml via Hibernate Validator's class loader
+17:30:48.845 [main] DEBUG o.h.v.i.xml.ValidationXmlParser - No META-INF/validation.xml found. Using annotation based configuration only.
+17:30:48.845 [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.test.web.servlet.setup.StubWebApplicationContext@f4e0bf
+17:30:48.861 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Looking for exception mappings: org.springframework.test.web.servlet.setup.StubWebApplicationContext@f4e0bf
+17:30:48.861 [main] DEBUG o.s.t.w.s.TestDispatcherServlet - Initializing servlet ''
+17:30:48.861 [main] DEBUG o.s.w.c.s.StandardServletEnvironment - Adding [servletConfigInitParams] PropertySource with lowest search precedence
+17:30:48.861 [main] DEBUG o.s.w.c.s.StandardServletEnvironment - Adding [servletContextInitParams] PropertySource with lowest search precedence
+17:30:48.861 [main] DEBUG o.s.w.c.s.StandardServletEnvironment - Adding [systemProperties] PropertySource with lowest search precedence
+17:30:48.861 [main] DEBUG o.s.w.c.s.StandardServletEnvironment - Adding [systemEnvironment] PropertySource with lowest search precedence
+17:30:48.861 [main] DEBUG o.s.w.c.s.StandardServletEnvironment - Initialized StandardServletEnvironment with PropertySources [servletConfigInitParams,servletContextInitParams,systemProperties,systemEnvironment]
+17:30:48.861 [main] INFO  o.s.mock.web.MockServletContext - Initializing Spring FrameworkServlet ''
+17:30:48.876 [main] INFO  o.s.t.w.s.TestDispatcherServlet - FrameworkServlet '': initialization started
+17:30:48.876 [main] DEBUG o.s.t.w.s.TestDispatcherServlet - Unable to locate MultipartResolver with name 'multipartResolver': no multipart request handling provided
+17:30:48.876 [main] DEBUG o.s.t.w.s.TestDispatcherServlet - Using LocaleResolver [org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver@4b0e5d]
+17:30:48.876 [main] DEBUG o.s.t.w.s.TestDispatcherServlet - Using ThemeResolver [org.springframework.web.servlet.theme.FixedThemeResolver@b892d5]
+17:30:48.876 [main] DEBUG o.s.t.w.s.TestDispatcherServlet - Using RequestToViewNameTranslator [org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@13f761a]
+17:30:48.876 [main] DEBUG o.s.t.w.s.TestDispatcherServlet - Using FlashMapManager [org.springframework.web.servlet.support.SessionFlashMapManager@146d80f]
+17:30:48.876 [main] DEBUG o.s.t.w.s.TestDispatcherServlet - Published WebApplicationContext of servlet '' as ServletContext attribute with name [org.springframework.web.servlet.FrameworkServlet.CONTEXT.]
+17:30:48.876 [main] INFO  o.s.t.w.s.TestDispatcherServlet - FrameworkServlet '': initialization completed in 0 ms
+17:30:48.876 [main] DEBUG o.s.t.w.s.TestDispatcherServlet - Servlet '' configured successfully
+17:30:48.876 [main] DEBUG o.s.t.w.s.TestDispatcherServlet - DispatcherServlet with name '' processing GET request for [/user/email/e@hotmail.com]
+17:30:48.876 [main] DEBUG o.s.t.w.s.s.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Looking up handler method for path /user/email/e@hotmail.com
+17:30:48.876 [main] DEBUG o.s.t.w.s.s.StandaloneMockMvcBuilder$StaticRequestMappingHandlerMapping - Returning handler method [public Main.User Controllers.UserController.findUserByEmail(java.lang.String)]
+17:30:48.876 [main] DEBUG o.s.t.w.s.TestDispatcherServlet - Last-Modified value for [/user/email/e@hotmail.com] is: -1
+17:30:48.892 [main] DEBUG o.s.t.w.s.TestDispatcherServlet - Null ModelAndView returned to DispatcherServlet with name '': assuming HandlerAdapter completed request handling
+17:30:48.892 [main] DEBUG o.s.t.w.s.TestDispatcherServlet - Successfully completed request
+17:30:48.954 [main] DEBUG o.s.t.c.s.AbstractDirtiesContextTestExecutionListener - After test method: context [DefaultTestContext@1b0fd6f testClass = UserControllerTest, testInstance = hellomaven.UserControllerTest@1f49060, testMethod = testFindUserByEmail@UserControllerTest, testException = java.lang.NoClassDefFoundError: com/jayway/jsonpath/InvalidPathException, mergedContextConfiguration = [MergedContextConfiguration@17942a1 testClass = UserControllerTest, locations = '{}', classes = '{class hellomaven.UserControllerTest$UserControllerTestConfiguration}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]]], class annotated with @DirtiesContext [false] with mode [null], method annotated with @DirtiesContext [false] with mode [null].
+]]></system-out>
+  </testcase>
 </testsuite>
