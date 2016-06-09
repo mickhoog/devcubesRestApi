@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -23,7 +22,6 @@ public class UserController {
      * @return list of all users
      */
     @RequestMapping("/user")
-    @ResponseBody
     public List<User> user() {
         return repo.findAll();
     }
@@ -54,7 +52,6 @@ public class UserController {
      * @return user
      */
     @RequestMapping("/user/email/{email}")
-    @ResponseBody
     public User findUserByEmail(@PathVariable("email") String email) {
     	return repo.findByEmail(email);
     }
