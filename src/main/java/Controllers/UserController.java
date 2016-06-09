@@ -36,7 +36,7 @@ public class UserController {
     }
 
     /**
-     * Find user by username
+     * Find user by id
      * @param id
      * @return user
      */
