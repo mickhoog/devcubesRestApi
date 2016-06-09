@@ -1,7 +1,5 @@
 package Main;
 
-import org.joda.time.DateTime;
-
 import javax.persistence.*;
 
 @Entity

@@ -12,7 +12,6 @@ public class DateParser {
 		try {
 			date1 =  new Date(format.parse(date.substring(0, 10)).getTime());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 		return date1;

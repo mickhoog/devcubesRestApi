@@ -33,7 +33,6 @@ public class EmailController {
 
         email.setUserId(userId);
         email.setDate(datetime);
-
         email.setDescription("Beste " + user.getUsername() + ", \n\n" +
                 "U heeft: " + salary + " dollar verdient! \n\n" +
                 "Met vriendelijke groet, \nhet DevCubes team.");
