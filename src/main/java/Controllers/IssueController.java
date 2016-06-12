@@ -48,7 +48,13 @@ public class IssueController {
 		return issueRepo.findAll();
 	}
 
-	//updates sonar data in database
+    /**
+     * Went called go to url with given project and user
+     * Creates a new sonarpush and fills in all the needed data
+     * @param projectName
+     * @param userEmail
+     * @return String when done
+     */
 	@RequestMapping("/updatesonardata")
 	public String updateSonar(@RequestParam("project") String projectName,
 							  @RequestParam("useremail") String userEmail) {
@@ -88,7 +94,7 @@ public class IssueController {
      * Goes to given url, gets the issues from that page and adds them to the sonarpush
      * @param url
      * @param sonarPush
-     * @return sonarpush added with all the issues
+     * @return list with all the issues
      */
     public List<Issue> saveIssues(String url, SonarPush sonarPush){
         List<Issue> issueList = new ArrayList<Issue>();
@@ -117,6 +123,11 @@ public class IssueController {
         return issueList;
     }
 
+    /**
+     * Gets complexity from url and sets them in current sonarpush
+     * @param url
+     * @param sonarPush
+     */
     public void updatePushProperties(String url, SonarPush sonarPush){
         try {           
             JSONArray array = jsonReader.readJsonArray(url);            
