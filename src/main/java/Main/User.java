@@ -4,6 +4,7 @@ package Main;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+
 import java.util.Set;
 
 @Entity
@@ -18,7 +19,7 @@ public class User {
     private GameInformation gameInformation;
     private Set<Project> projects;
 
-    public User() {}
+    protected User() {}
 
     public User(String firstName, String lastName, String email, String password, String username) {
         this.first_name = firstName;

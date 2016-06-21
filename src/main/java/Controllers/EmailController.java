@@ -20,12 +20,6 @@ public class EmailController {
     @Autowired
     Main.EmailRepository emailRepo;
 
-    /**
-     * Creates a new email and saves it in the database
-     * @param salary
-     * @param userId
-     * @return New email
-     */
     @RequestMapping(value = "/email/new")
     public Email createEmail(@RequestParam("salary") Double salary,
                              @RequestParam("userId") int userId){
@@ -39,6 +33,7 @@ public class EmailController {
 
         email.setUserId(userId);
         email.setDate(datetime);
+
         email.setDescription("Beste " + user.getUsername() + ", \n\n" +
                 "U heeft: " + salary + " dollar verdient! \n\n" +
                 "Met vriendelijke groet, \nhet DevCubes team.");
@@ -50,11 +45,6 @@ public class EmailController {
         return email;
     }
 
-    /**
-     * Finds list of emails from user by their id
-     * @param id
-     * @return List of emails from user
-     */
     @RequestMapping("/email/{id}")
     public List<Email> findEmailsId(@PathVariable("id") int id){
         List<Email> emails = emailRepo.findByUserId(id);

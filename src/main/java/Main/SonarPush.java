@@ -36,10 +36,6 @@ public class SonarPush {
 		this.functionComplexity = functionComplexity;
 	}
 
-	public static SonarPush Create() {
-		return new SonarPush();
-	}
-	
 	@Override
 	public String toString() {
 		return "SonarPush{" +

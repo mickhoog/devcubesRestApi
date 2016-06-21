@@ -1,7 +1,6 @@
 package Controllers;
 
 import Main.*;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -16,16 +15,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.json.simple.parser.ParseException;
-
-import java.io.IOException;
-
 @RestController
 public class IssueController {
 
     private static final Logger log = LoggerFactory.getLogger(IssueController.class);
-    private final String apiUrl = "http://145.24.222.130:9000/api/";
-    
+
     @Autowired
     Main.ProjectRepository prijRepo;
 
@@ -48,55 +42,44 @@ public class IssueController {
 		return issueRepo.findAll();
 	}
 
-    /**
-     * Went called go to url with given project and user
-     * Creates a new sonarpush and fills in all the needed data
-     * @param projectName
-     * @param userEmail
-     * @return String when done
-     */
+    @RequestMapping("/sonarpush/setSalary")
+    public void setSonarPushSalary(@RequestParam("salary") Double salary,
+                                   @RequestParam("id") int id){
+        SonarPush sonarPush = sonarRepo.findOne(id);
+        sonarPush.setSalary(salary);
+        sonarRepo.save(sonarPush);
+    }
+
+	//updates sonar data in database
 	@RequestMapping("/updatesonardata")
 	public String updateSonar(@RequestParam("project") String projectName,
 							  @RequestParam("useremail") String userEmail) {
         Project project = prijRepo.findByName(projectName);
         User user = userRepo.findByEmail(userEmail);
-        SonarPush sonarPush = getNewPush(user, project);
-        
-        String sonarProjectName = project.getSonarName();
-        String complexityTechDebtUrl = apiUrl + "resources/index?resource="+sonarProjectName+"&metrics=complexity,class_complexity,file_complexity,function_complexity,sqale_index,sqale_debt_ratio&format=json";
-        String issuesUrl = apiUrl + "issues/search?statuses=OPEN&projects="+sonarProjectName;
-        
-        updatePushProperties(complexityTechDebtUrl, sonarPush);
+        SonarPush sonarPush = new SonarPush();
+        sonarPush.setUser(user);
+        sonarPush.setProject(project);
+
+        java.util.Date newDate = new Date();
+        Timestamp param = new Timestamp(newDate.getTime());
+        log.info(String.valueOf(param));
+
+        sonarPush.setDate(param);
+
+        String sonarPushName = project.getSonarName();
+        String issuesUrl = "http://145.24.222.130:9000/api/issues/search?statuses=OPEN&projects="+sonarPushName;
+        String complexityTechDebtUrl = "http://145.24.222.130:9000/api/resources/index?resource="+sonarPushName+"&metrics=complexity,class_complexity,file_complexity,function_complexity,sqale_index,sqale_debt_ratio&format=json";
+
+        getComplexityAndTechnicalDebt(complexityTechDebtUrl, sonarPush);
         sonarRepo.save(sonarPush);
-        List<Issue> issueList = saveIssues(issuesUrl, sonarPush);
-        log.info(issueList.size() + " issues found");
+        List<Issue> issueList = saveIssues(issuesUrl, user, sonarPush);
+
         new CalculateSalary(sonarPush, issueList);
         return "Done";
 	}
 
-    /**
-     * Creates a new sonarpush, sets user, project and date
-     * @param user
-     * @param project
-     * @return newly created sonarpush
-     */
-	private SonarPush getNewPush(User user, Project project) {
-        SonarPush sonarPush = SonarPush.Create();
-        sonarPush.setUser(user);
-        sonarPush.setProject(project);
-        java.util.Date newDate = new Date();
-        Timestamp param = new Timestamp(newDate.getTime());
-        sonarPush.setDate(param);	
-        return sonarPush;
-	}
-
-    /**
-     * Goes to given url, gets the issues from that page and adds them to the sonarpush
-     * @param url
-     * @param sonarPush
-     * @return list with all the issues
-     */
-    public List<Issue> saveIssues(String url, SonarPush sonarPush){
+	
+    public List<Issue> saveIssues(String url, User user, SonarPush sonarPush){
         List<Issue> issueList = new ArrayList<Issue>();
         try {
             JSONObject jobject = jsonReader.readJson(url);
@@ -104,7 +87,7 @@ public class IssueController {
             JSONArray issues = jsonReader.readJsonComponent(url + "&" + paramPageSize, "issues");
             for (int i=0; i < issues.size(); i++) {
                 JSONObject issue = (JSONObject) issues.get(i);
-                if(issue.get("author").toString().equals(sonarPush.getUser().getEmail())){
+                if(issue.get("author").toString().equals(user.getEmail())){
                     String debt = "";
                     if (issue.keySet().contains("debt"))
                         debt = issue.get("debt").toString();
@@ -123,19 +106,14 @@ public class IssueController {
         return issueList;
     }
 
-    /**
-     * Gets complexity from url and sets them in current sonarpush
-     * @param url
-     * @param sonarPush
-     */
-    public void updatePushProperties(String url, SonarPush sonarPush){
+    public void getComplexityAndTechnicalDebt(String url, SonarPush sonarPush){
         try {           
             JSONArray array = jsonReader.readJsonArray(url);            
-            for(int i = 0; i < array.size(); i++){
-                JSONObject object = (JSONObject) array.get(i);
+            for(int n = 0; n < array.size(); n++){
+                JSONObject object = (JSONObject) array.get(n);
                 JSONArray ar = (JSONArray) object.get("msr");
-                for(Object msr : ar){
-                    JSONObject obj = (JSONObject) msr;
+                for(int i = 0; i < ar.size(); i++){
+                    JSONObject obj = (JSONObject) ar.get(i);
                     switch (obj.get("key").toString()){
                         case "complexity":
                             sonarPush.setOverallComplexity((Double) obj.get("val"));
@@ -155,9 +133,7 @@ public class IssueController {
                     }
                 }
             }            
-        } catch(ParseException e) {
-            e.printStackTrace();
-        }catch(IOException e) {
+        } catch(Exception e) {
             e.printStackTrace();
         }
     }

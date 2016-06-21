@@ -1,12 +1,12 @@
 package Controllers;
 
-import Main.GameInformation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.bind.annotation.*;
+
+import Main.GameInformation;
 @RestController
 public class GameInfoController {
 
@@ -39,28 +39,20 @@ public class GameInfoController {
         return current;
     }
 
-    /**
-     * Finds all gameinformation
-     * @return all gameinformation
-     */
+    // Upgrade pc
+    //RequestMapping("/gameinfo/upgrade/pc")
+
+    // Finds all gameinformation
     @RequestMapping("/gameinfo")
     public List<GameInformation> gameInfo() {
         return repo.findAll();
     }
 
-    /**
-     * Find one gameinformation by id
-     * @param id
-     * @return gameinformation of user by id
-     */
+    // Find gameinformation by id
     @RequestMapping("/gameinfo/{id}")
     public GameInformation gameInformationById(@PathVariable("id") int id){ return repo.findOne(id); }
 
-    /**
-     * Finds all the users that have more money than 'Amount'
-     * @param amount
-     * @return list of gameinformation
-     */
+    // Finds all the users that have more money than 'Amount'
     @RequestMapping("/gameinfo/money/more/{amount}")
     public List<GameInformation> gameInforMoney(@PathVariable("amount") int amount){return repo.findByMoneyGreaterThan(amount); }
 }
