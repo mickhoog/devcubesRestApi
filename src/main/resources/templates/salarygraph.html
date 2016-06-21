@@ -1,0 +1,54 @@
+<html xmlns:th="http://www.springframework.org/schema/jdbc">
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" th:inline="javascript"></script>
+
+    <script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawCurveTypes);
+
+function drawCurveTypes() {
+       var data = new google.visualization.DataTable();
+      data.addColumn('date', 'X');
+      data.addColumn('number', 'Salaris');
+
+
+      var salaries = [[${salaries}]];
+      var timestamps = [[${timestamps}]];
+
+    console.log(salaries);
+    console.log(timestamps);
+
+    for(i = 0; i < salaries.length; i++){
+        data.addRow([new Date(timestamps[i]), salaries[i]]);
+    }
+
+      var options = {
+
+        title: 'Uw verdiende salaris van de afgelopen tijd.',
+        pointSize: 10,
+        hAxis: {
+          title: 'Time'
+        },
+        vAxis: {
+          title: 'Salary'
+        }
+      };
+
+	  var chart_div = document.getElementById('chart_div');
+      var chart = new google.visualization.LineChart(chart_div);
+
+      // Wait for the chart to finish drawing before calling the getImageURI() method.
+      google.visualization.events.addListener(chart, 'ready', function () {
+        //chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+        chart_div.innerHTML = chart.getImageURI();
+        //console.log(chart.getImageURI());
+      });
+
+      chart.draw(data, options);
+    }
+    /*]]>*/
+  </script>
+</head>
+<body><div id='chart_div'></div></body>
+</html>

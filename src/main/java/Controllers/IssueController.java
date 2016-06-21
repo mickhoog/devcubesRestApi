@@ -112,7 +112,7 @@ public class IssueController {
             for(int n = 0; n < array.size(); n++){
                 JSONObject object = (JSONObject) array.get(n);
                 JSONArray ar = (JSONArray) object.get("msr");
-                for(int i = 0; i < ar.size(); i++){;
+                for(int i = 0; i < ar.size(); i++){
                     JSONObject obj = (JSONObject) ar.get(i);
                     switch (obj.get("key").toString()){
                         case "complexity":

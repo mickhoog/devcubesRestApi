@@ -8,6 +8,7 @@ Main\main.class
 Main\Email.class
 Main\DateParser.class
 Controllers\GameInfoController.class
+Controllers\GraphController.class
 Main\GameInformationRepository.class
 Main\ProjectRepository.class
 Controllers\UserController.class
