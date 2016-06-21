@@ -29,19 +29,36 @@ public class ProjectController {
     private final String sonarDeleteUrl = "http://localhost:8080/sonarpush/delete";
     
     // Get all users
+
+    /**
+     * Get all users
+     * @return list of all users
+     */
     @RequestMapping("/project")
     public List<Project> books() {
         return repo.findAll();
     }
 
-    // Get user by id
+    /**
+     * Get user by id
+     * @param id
+     * @return project found by id
+     */
     @RequestMapping("/project/{id}")
     public Project project(@PathVariable("id") int id) {
         return repo.findOne(id);
     }
 
 
-    // Create new project, given a name, description and date
+    /**
+     * Create new project, given a name, description, date, sonarname
+     * @param name
+     * @param description
+     * @param startDate
+     * @param sonarName
+     * @return a newly made project
+     * @throws ParseException
+     */
     @RequestMapping("/project/create")
     public Project newProject(@RequestParam("name") String name,
                               @RequestParam("description") String description,
@@ -58,9 +75,12 @@ public class ProjectController {
         return newProject;
     }
 
-
-    // Takes projectId & userId then adds the project to an user and the user to a project.
-    // Return the project with the newly added user.
+    /**
+     * Takes projectId & userId then adds the project to an user and the user to a project
+     * @param projectId
+     * @param userId
+     * @return the project with the newly added user
+     */
     @RequestMapping("/project/addUser")
     public Project addUser(@RequestParam("projectId") int projectId,
                            @RequestParam("userId") int userId){
@@ -76,7 +96,12 @@ public class ProjectController {
 
         return project;
     }
-    
+
+    /**
+     * Deletes a project from the database
+     * @param projectId
+     * @return String that its done
+     */
     @RequestMapping("/project/delete")
     public String deleteProject(@RequestParam("projectId") int projectId) {
     	Project project = repo.findOne(projectId);
@@ -92,7 +117,13 @@ public class ProjectController {
     	repo.delete(projectId);
     	return "Project " + project.getName() + " has been deleted.";
     }
-    
+
+    /**
+     * Removes a user from a project
+     * @param projectId
+     * @param userId
+     * @return String that its done
+     */
     @RequestMapping("project/deleteUser")
     public String deleteUserFromProject(@RequestParam("projectId") int projectId,
             @RequestParam("userId") int userId) {

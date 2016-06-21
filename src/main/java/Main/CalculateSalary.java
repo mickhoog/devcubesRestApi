@@ -4,8 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 
 public class CalculateSalary {
     private static final Logger log = LoggerFactory.getLogger(CalculateSalary.class);
@@ -16,23 +18,20 @@ public class CalculateSalary {
     @Autowired
     private EmailRepository emailRepo;
 
+    private String url = "http://localhost:8080";
+
     public CalculateSalary(SonarPush sonarPush, List<Issue> issues) {
         HttpConnector httpConnector = new HttpConnector("user", "c1cc6367-5c10-4d76-955e-d58678eeb1f8");
 
-        log.info(String.valueOf(issues));
-
         double salary = Math.floor(getSalary(sonarPush, issues));
-        log.info("Salary: " + String.valueOf(salary));
         // Get user id
         // roep dan aan gameinfocontroller changeInformation
 
-        //http://localhost:8080/updatesonardata?project=my:DevCube&useremail=sammeyer1994@hotmail.com
+        httpConnector.sendPost(url + "/gameinfo/"+sonarPush.getUser().getId()+"/money/add/"+ salary, "", true);
 
-        httpConnector.sendPost("http://localhost:8080/gameinfo/"+sonarPush.getUser().getId()+"/money/add/"+ salary, "", true);
+        httpConnector.sendPost(url + "/email/new?", "salary="+salary+"&userId=" + sonarPush.getUser().getId(), true);
 
-        httpConnector.sendPost("http://localhost:8080/email/new?", "salary="+salary+"&userId=" + sonarPush.getUser().getId(), true);
-
-        httpConnector.sendPost("http://localhost:8080/sonarpush/setSalary?", "salary="+salary+"&id=" + sonarPush.getId(), true);
+        httpConnector.sendPost(url + "/sonarpush/setSalary?", "salary="+salary+"&id=" + sonarPush.getId(), true);
 
     }
 
@@ -43,9 +42,11 @@ public class CalculateSalary {
 
         Double technicalDebt = sonarPush.getTechnicalDebt();
 
-        double salaryModifiers = (calculateComplexity(classComplexity, fileComplexity, functionComplexity)
-                * calculateTechnicalDebt(technicalDebt)
-                * calculateViolation(issues)) /* * calculateCoverage() * calculateDuplication() */  ;
+        Double[] complexities = {classComplexity, fileComplexity, functionComplexity};
+
+        double salaryModifiers = (calculateComplexity(complexities)
+                                * calculateTechnicalDebt(technicalDebt)
+                                * calculateViolation(issues)) /* * calculateCoverage() * calculateDuplication() */  ;
 
         log.info("salaryModifiers: " + String.valueOf(salaryModifiers));
 
@@ -83,41 +84,21 @@ public class CalculateSalary {
         return duplicationProcent;
     }
 
-    private float calculateComplexity(Double classComplexity, Double fileComplexity, Double functionComplexity){
-        float complexityProcent = 1;
-        float functionComplexityProcent = 1;
-        float classComplexityProcent = 1;
-        float fileComplexityProcent = 1;
+    private double calculateComplexity(Double[] complexityArray){
+        double completeComplexity = 0;
 
-        // TODO Duplicate code weghalen
-
-        if (functionComplexity <= 2){
-            functionComplexityProcent = 1;
-        }else if(functionComplexity <= 4){
-            functionComplexityProcent = 0.95f;
-        }else if (fileComplexity >= 5){
-            functionComplexityProcent = 0.9f;
+        for (Double complexity : complexityArray) {
+            if(complexity >= 5)
+                completeComplexity += 1;
+            else{
+                if (complexity >= 2)
+                    completeComplexity += 0.95;
+                else
+                    completeComplexity += 0.9;
+            }
         }
 
-        if (classComplexity <= 2){
-            classComplexityProcent = 1;
-        }else if(classComplexity <= 4){
-            classComplexityProcent = 0.95f;
-        }else if (classComplexity >= 5){
-            classComplexityProcent = 0.9f;
-        }
-
-        if (fileComplexity <= 2){
-            fileComplexityProcent = 1;
-        }else if(fileComplexity <= 4){
-            fileComplexityProcent = 0.95f;
-        }else if (fileComplexity >= 5){
-            fileComplexityProcent = 0.9f;
-        }
-
-        complexityProcent = functionComplexityProcent * classComplexityProcent * fileComplexityProcent;
-
-        return complexityProcent;
+        return completeComplexity;
     }
 
     private double calculateViolation(List<Issue> issues){
